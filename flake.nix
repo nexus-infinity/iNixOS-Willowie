@@ -9,6 +9,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     dojo.url = "path:/Users/jbear/FIELD/Nixos_Shared";
     
+    # Sacred Triad
+    obi-wan.url = "path:./sacred/OBI-WAN";
+    tata.url = "path:./sacred/TATA";
+    atlas.url = "path:./sacred/Atlas";
+    
     # Chakra ecosystem flakes
     root-chakra.url = "path:./chakras/muladhara";
     sacral-chakra.url = "path:./chakras/svadhisthana";
@@ -19,7 +24,7 @@
     crown-chakra.url = "path:./chakras/sahasrara";
   };
 
-  outputs = { self, nixpkgs, dojo, root-chakra, sacral-chakra, solar-chakra, heart-chakra, throat-chakra, third-eye-chakra, crown-chakra }: {
+  outputs = { self, nixpkgs, dojo, obi-wan, tata, atlas, root-chakra, sacral-chakra, solar-chakra, heart-chakra, throat-chakra, third-eye-chakra, crown-chakra }: {
     nixosConfigurations = {
       BearsiMac = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
