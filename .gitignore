@@ -1,0 +1,53 @@
+# NixOS specific
+result
+result-*
+*.qcow2
+*.img
+*.iso
+
+# System specific
+.DS_Store
+.Spotlight-V100
+.Trashes
+*.swp
+*~
+
+# Sensitive data
+*.key
+*.pem
+*.cert
+*id_rsa*
+*id_ed25519*
+*.env
+.env*
+secrets*
+credentials*
+*.secret*
+
+# Temp files
+*.log
+*.tmp
+*.temp
+.nixos-cache/
+tmp/
+temp/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-*
+.vim/
+.nvim/
+*.iml
+
+# Build outputs
+build/
+dist/
+out/
+
+# Nix garbage collection roots and profiles
+/nix/var/nix/gcroots/
+/nix/var/nix/profiles/
+
+# Hardware-specific configs that shouldn't be shared
+hardware-configuration.nix
