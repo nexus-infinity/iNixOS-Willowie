@@ -1,0 +1,1 @@
+# vishuddha chakra ecosystem configuration

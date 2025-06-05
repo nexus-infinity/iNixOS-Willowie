@@ -1,0 +1,1 @@
+# svadhisthana chakra ecosystem configuration

@@ -1,0 +1,1 @@
+# manipura chakra ecosystem configuration

@@ -8,9 +8,18 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     dojo.url = "path:/Users/jbear/FIELD/Nixos_Shared";
+    
+    # Chakra ecosystem flakes
+    root-chakra.url = "path:./chakras/muladhara";
+    sacral-chakra.url = "path:./chakras/svadhisthana";
+    solar-chakra.url = "path:./chakras/manipura";
+    heart-chakra.url = "path:./chakras/anahata";
+    throat-chakra.url = "path:./chakras/vishuddha";
+    third-eye-chakra.url = "path:./chakras/ajna";
+    crown-chakra.url = "path:./chakras/sahasrara";
   };
 
-  outputs = { self, nixpkgs, dojo }: {
+  outputs = { self, nixpkgs, dojo, root-chakra, sacral-chakra, solar-chakra, heart-chakra, throat-chakra, third-eye-chakra, crown-chakra }: {
     nixosConfigurations = {
       BearsiMac = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

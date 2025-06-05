@@ -1,0 +1,1 @@
+# muladhara chakra ecosystem configuration

@@ -1,0 +1,1 @@
+# ajna chakra ecosystem configuration

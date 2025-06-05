@@ -1,0 +1,1 @@
+# sahasrara chakra ecosystem configuration

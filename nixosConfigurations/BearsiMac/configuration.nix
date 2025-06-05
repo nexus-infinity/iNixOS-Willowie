@@ -1,6 +1,15 @@
-{ config, lib, pkgs, dojo, ... }:
+{ config, lib, pkgs, dojo, root-chakra, sacral-chakra, solar-chakra, heart-chakra, throat-chakra, third-eye-chakra, crown-chakra, ... }:
 {
-  imports = [ ];
+  imports = [
+    # Import chakra-specific configurations
+    root-chakra.nixosModules.default
+    sacral-chakra.nixosModules.default
+    solar-chakra.nixosModules.default
+    heart-chakra.nixosModules.default
+    throat-chakra.nixosModules.default
+    third-eye-chakra.nixosModules.default
+    crown-chakra.nixosModules.default
+  ];
 
   # Basic system configuration
   networking = {
@@ -22,7 +31,7 @@
   # User configuration
   users.users.jbear = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
   };
 
@@ -37,7 +46,6 @@
   # Enable important services
   services = {
     openssh.enable = true;
-    docker.enable = true;
   };
 
   # System state version
