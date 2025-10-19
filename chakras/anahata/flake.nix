@@ -1,7 +1,11 @@
 {
   description = "Heart Chakra (Anahata) - Balance and Integration";
 
-  outputs = { self }: {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  };
+
+  outputs = { self, nixpkgs }: {
     nixosModules.default = { config, lib, pkgs, ... }: {
       services.dojoNodes.heart = {
         enable = true;

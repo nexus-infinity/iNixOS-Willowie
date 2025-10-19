@@ -1,7 +1,11 @@
 {
   description = "Throat Chakra (Vishuddha) - Communication and Expression";
 
-  outputs = { self }: {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  };
+
+  outputs = { self, nixpkgs }: {
     nixosModules.default = { config, lib, pkgs, ... }: {
       services.dojoNodes.throat = {
         enable = true;

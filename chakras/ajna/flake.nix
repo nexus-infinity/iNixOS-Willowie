@@ -1,7 +1,11 @@
 {
   description = "Third Eye Chakra (Ajna) - Insight and Perception";
 
-  outputs = { self }: {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  };
+
+  outputs = { self, nixpkgs }: {
     nixosModules.default = { config, lib, pkgs, ... }: {
       services.dojoNodes.thirdeye = {
         enable = true;
