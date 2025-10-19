@@ -2,37 +2,39 @@
   description = "BearsiMac - Willowie Kitchen NixOS Configuration";
 
   inputs = {
-    # We now point to the official, remote source for the entire hive's DNA.
-    iNixOS-Willowie.url = "github:nexus-infinity/iNixOS-Willowie";
-
-    # We also keep our core Nixpkgs stable.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+
+    # Use the chakra sub-flakes as local path inputs so we don't import the repo as an input.
+    chakras-ajna.path = ./chakras/ajna;
+    chakras-anahata.path = ./chakras/anahata;
+    chakras-manipura.path = ./chakras/manipura;
+
+    # If you have other shared modules in subdirs, add them similarly.
   };
 
-  outputs = { self, nixpkgs, iNixOS-Willowie }: {
+  outputs = { self, nixpkgs, chakras-ajna, chakras-anahata, chakras-manipura }: {
     nixosConfigurations = {
       BearsiMac = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
-          # We pass the entire hive and its sub-flakes for modules to access.
-          inherit self nixpkgs iNixOS-Willowie;
+          inherit self nixpkgs chakras-ajna chakras-anahata chakras-manipura;
         };
         modules = [
-          # We import the machine-specific configuration from the central hive repository.
-          iNixOS-Willowie.nixosConfigurations.BearsiMac.config
-          
-          # The Metatron Cube logic and other shared modules from the hive.
-          iNixOS-Willowie.modules.chakras.default
-          iNixOS-Willowie.modules.sacred.default
-          iNixOS-Willowie.modules.dojo.default
-
-          # We still keep local, private files separate.
+          # Local hardware and overrides
           ./hardware-configuration.nix
           ./local-overrides.nix
+
+          # Chakra modules exported by the sub-flakes (they expose nixosModules.default)
+          chakras-ajna.nixosModules.default
+          chakras-anahata.nixosModules.default
+          chakras-manipura.nixosModules.default
+
+          # Machine-specific config (adjust path if different)
+          ./nixosConfigurations/BearsiMac/configuration.nix
         ];
       };
     };
-    
+
     formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
   };
 }
