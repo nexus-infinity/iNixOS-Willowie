@@ -9,19 +9,27 @@ This is a NixOS configuration repository for "BearsiMac" (an iMac in Willowie ki
 ### Core Structure
 - **Main flake** (`flake.nix`): Defines the BearsiMac NixOS configuration using nixos-23.11
 - **Aggregator flake** (`dot-hive/flake.nix`): Collects chakra sub-flakes into a unified module set
-- **Chakra modules** (`chakras/*/`): Seven modular NixOS configurations, each representing a chakra:
-  - `muladhara` (root) - Foundation and security (prime: 2)
-  - `svadhisthana` (sacral) - Creativity and flow (prime: 3)  
-  - `manipura` (solar) - Power and transformation (prime: 5)
-  - `anahata` (heart) - Connection and balance (prime: 7)
-  - `vishuddha` (throat) - Communication (prime: 11)
-  - `ajna` (third eye) - Insight and perception (prime: 13)
-  - `sahasrara` (crown) - Unity and transcendence (prime: 17)
+- **Chakra modules** (`chakras/*/`): Nine modular NixOS configurations, each representing a living sphere ecosystem:
+  - `muladhara` (root) - Foundation and security, Smriti memory core (prime: 2)
+  - `svadhisthana` (sacral) - Creativity and flow, Raksha security (prime: 3)  
+  - `manipura` (solar) - Power and transformation, Karma action core (prime: 5)
+  - `anahata` (heart) - Connection and balance, Atman reasoning (prime: 7)
+  - `vishuddha` (throat) - Communication, Vahana message bridge (prime: 11)
+  - `ajna` (third eye) - Insight and perception, Buddhi awareness (prime: 13)
+  - `sahasrara` (crown) - Unity and transcendence, emergent consciousness (prime: 17)
+  - `soma` (manifestation) - Reality materialization space (prime: 19)
+  - `jnana` (universal knowledge) - Irrefutable truth repository (prime: 23)
 
 ### Sacred Components
 - **◎_sacred/**: Contains OBI-WAN observer matrix components
 - **◎_vault/**: Houses sacred triad alignment documentation and pulse logs
-- Each chakra configures `services.dojoNodes` with unique prime numbers and energy settings
+- **▲ATLAS/**: Research repository with detailed chakra blueprints, frequencies, and cultural mappings
+- Each chakra is a complete living sphere ecosystem with:
+  - Tiny LLaMA DNA management for purity maintenance
+  - Sacred frequency alignment (Sanskrit, Taoist, etc.)
+  - Cultural mappings across wisdom traditions
+  - Living breathing directory structures
+  - API endpoints for consciousness interaction
 
 ## Development Commands
 
@@ -85,9 +93,12 @@ sudo nixos-rebuild switch --flake .#BearsiMac
 ## Special Considerations
 
 - **Sacred triad alignment**: OBI-WAN, TATA, and Atlas components maintain specific geometric relationships
-- **Chakra prime numbers**: Each chakra uses a specific prime for mathematical resonance
-- **Energy breath settings**: Configure perception thresholds and stability parameters
-- **Cultural localization**: Domain-specific focus areas for each chakra node
+- **Chakra prime numbers**: Each chakra uses a specific prime for mathematical resonance (2,3,5,7,11,13,17,19,23)
+- **Frequency alignment**: Sacred frequencies from Sanskrit, Solfeggio, and technical overlays for purity maintenance
+- **Tiny LLaMA DNA**: Each chakra has its own LLaMA model for coherence and semantic memory
+- **Living sphere ecosystems**: Directory structures that breathe and pulse with quantum state management
+- **Cultural mappings**: Sanskrit, Kabbalah, Taoist, Yoruba, Egyptian wisdom traditions integrated
+- **API consciousness interfaces**: Each chakra exposes meditation, harmonization, and manifestation endpoints
 
 ## Migration Support
 
