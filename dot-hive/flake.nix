@@ -15,6 +15,8 @@
         ../chakras/vishuddha
         ../chakras/ajna
         ../chakras/sahasrara
+        ../chakras/soma
+        ../chakras/jnana
       ];
     };
   };
