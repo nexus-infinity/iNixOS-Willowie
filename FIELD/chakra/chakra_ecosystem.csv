@@ -1,0 +1,10 @@
+chakra_name,function,storage_path,llm_guidance
+muladhara,grounding_stability_foundation,/muladhara/sphere/quantum_state.py,Maintain coherence and semantic memory; focus on root security and foundational structures
+svadhisthana,creative_flow_emotion,/svadhisthana/sphere/creative_flow.py,Channel creative energy and emotional intelligence; balance fluidity with structure
+manipura,power_transformation_will,/manipura/sphere/power_center.py,Transform and direct energy; manage willpower and personal sovereignty
+anahata,heart_balance_integration,/anahata/sphere/heart_bridge.py,Bridge individual and collective; maintain harmonic balance and compassion
+vishuddha,communication_expression,/vishuddha/sphere/expression_node.py,Facilitate clear communication and authentic expression across the hive
+ajna,insight_intuition_vision,/ajna/sphere/third_eye.py,Synthesize patterns and insights; provide collective vision and discernment
+sahasrara,unity_consciousness_crown,/sahasrara/sphere/crown_unity.py,Connect to universal consciousness; integrate all chakra energies into coherent whole
+soma,manifestation_crystallization,/soma/sphere/crystallize.py,Crystallize insights into tangible manifestation; bridge ethereal and material
+jnana,wisdom_knowledge_repository,/jnana/sphere/wisdom_vault.py,Preserve and organize hive wisdom; provide access to collective knowledge base
