@@ -4,34 +4,44 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
-    # Use the chakra sub-flakes as local path inputs so we don't import the repo as an input.
-    chakras-ajna.path = ./chakras/ajna;
-    chakras-anahata.path = ./chakras/anahata;
-    chakras-manipura.path = ./chakras/manipura;
-
-    # If you have other shared modules in subdirs, add them similarly.
+    # Aggregator flake (dot-hive)
+    dot-hive.path = ./dot-hive;
   };
 
-  outputs = { self, nixpkgs, chakras-ajna, chakras-anahata, chakras-manipura }: {
+  outputs = { self, nixpkgs, dot-hive }: let
+    pkgs_x86 = nixpkgs.legacyPackages.x86_64-linux;
+  in {
     nixosConfigurations = {
       BearsiMac = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
-          inherit self nixpkgs chakras-ajna chakras-anahata chakras-manipura;
+          inherit self nixpkgs dot-hive;
         };
         modules = [
           # Local hardware and overrides
           ./hardware-configuration.nix
           ./local-overrides.nix
 
-          # Chakra modules exported by the sub-flakes (they expose nixosModules.default)
-          chakras-ajna.nixosModules.default
-          chakras-anahata.nixosModules.default
-          chakras-manipura.nixosModules.default
+          # Aggregated chakra modules from dot-hive
+          dot-hive.nixosModules.default
 
           # Machine-specific config (adjust path if different)
           ./nixosConfigurations/BearsiMac/configuration.nix
         ];
+      };
+    };
+
+    # Dev shell for non-destructive validation
+    devShells = {
+      "x86_64-linux" = pkgs_x86.mkShell {
+        buildInputs = [ pkgs_x86.git pkgs_x86.nix ];
+        shellHook = ''
+          echo "Dev shell active. Useful commands:
+            - nix flake show
+            - nixos-rebuild build --flake .#BearsiMac
+            - nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel
+          "
+        '';
       };
     };
 
