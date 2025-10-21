@@ -1,0 +1,3 @@
+[1mgit+file:///home/nixos/Git/iNixOS-Willowie[0m
+[32;1m├───[0m[1mdevShells[0m
+[32;1m│   └───[0m[1mx86_64-linux[0m

@@ -5,7 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     # Aggregator flake (dot-hive)
-    dot-hive.path = ./dot-hive;
+    # FIX: Changing 'path' attribute to 'url = "path:..."' to resolve the flake input error.
+    dot-hive.url = "path:./dot-hive"; 
   };
 
   outputs = { self, nixpkgs, dot-hive }: let
@@ -20,12 +21,13 @@
         modules = [
           # Local hardware and overrides
           ./hardware-configuration.nix
-          ./local-overrides.nix
+          # Assuming local-overrides.nix exists (if not, add an empty one or remove this line)
+          # ./local-overrides.nix 
 
           # Aggregated chakra modules from dot-hive
           dot-hive.nixosModules.default
 
-          # Machine-specific config (adjust path if different)
+          # Machine-specific config
           ./nixosConfigurations/BearsiMac/configuration.nix
         ];
       };
@@ -48,3 +50,4 @@
     formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
   };
 }
+
