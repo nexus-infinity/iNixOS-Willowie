@@ -1,81 +1,105 @@
-#!/usr/bin/env bash
-# ========================================================
-# File: field-pipeline.sh
-# Role: Field Awareness Pipeline (The Weave)
-# Function: Scans the host system, generates a report, 
-#           and executes a conflict-free configuration build.
-# ========================================================
+#!/bin/bash
+# ====================================================================
+# FIELD Awareness Pipeline (The Weave)
+# Role: Performs validation, stability checks, memory updates, and build.
+# This version enforces modern Nix commands to bypass legacy executables.
+# ====================================================================
+
 set -euo pipefail
 
-# --- Configuration Constants ---
-FLAKE_REF=".#BearsiMac"
+# --- CONFIGURATION ---
+TARGET_CONFIG=".#BearsiMac"
 REPORT_DIR="./FIELD_AWARENESS_REPORT"
-LOG_FILE="${REPORT_DIR}/rebuild_switch_log.txt"
-# NEW FIX: Define the required experimental features string
-# This string will be passed via NIX_CONFIG for robust execution under sudo.
-# NOTE: Removed double quotes around the value to prevent nested quote confusion during sudo sh -c.
-NIX_FEATURES="extra-experimental-features = nix-command flakes"
 
+# The most robust way to enable flakes and nix-command on older systems.
+# Must be passed using sudo sh -c 'NIX_CONFIG=...'
+NIX_CONFIG="experimental-features = nix-command flakes"
+
+# Explicitly find the modern nix executable path, bypassing outdated versions in $PATH
+NIX_CMD=$(readlink -f /run/current-system/sw/bin/nix || echo "nix")
+
+# --- FUNCTIONS ---
+
+# Function to run commands with the correct NIX_CONFIG environment
+run_nix_command() {
+    # We use sudo sh -c '...' to ensure NIX_CONFIG is correctly passed to the root shell
+    sudo sh -c "NIX_CONFIG='${NIX_CONFIG}' ${NIX_CMD} $*" 2>&1
+}
+
+# --- STEP 0: PRE-FLIGHT CHECK ---
 echo "🔮 Initiating Field Awareness Pipeline (The Weave)..."
-echo "Target Configuration: ${FLAKE_REF}"
+echo "Target Configuration: ${TARGET_CONFIG}"
 
-# --- Temporal Anchor (Git Check) and Directory Alignment ---
-# Enforce that the script is run from the canonical repository root to satisfy the 'git status' command.
-if [ ! -d .git ] && [ ! -f flake.nix ]; then
-    echo "🚨 ERROR (Temporal Anchor Failure): This script must be run from the root directory of the iNixOS Flake (where .git and flake.nix reside)." >&2
-    echo "Please navigate to the repository root and re-run." >&2
+# Temporal Anchor Check (Ensure we are in the Flake root)
+if [[ ! -d ./.git ]] || [[ ! -f ./flake.nix ]]; then
+    echo "🚨 ERROR (Temporal Anchor Failure): This script must be run from the root directory of the iNixOS Flake (where .git and flake.nix reside)."
+    echo "Please navigate to the repository root and re-run."
     exit 1
 fi
 echo "✅ Temporal Anchor Confirmed: Operating from Flake Root."
 
 
-# --- Step 1: Initialize Report Directory ---
+# --- STEP 1: CREATE REPORT DIRECTORY ---
 echo "--- 1. Creating FIELD Awareness Report Directory ---"
-mkdir -p "${REPORT_DIR}"
+mkdir -p "$REPORT_DIR"
 echo "Report will be stored in: ${REPORT_DIR}"
 
-# --- Step 2: System Sanity Check (Generate Report) ---
-echo "--- 2. Generating Hardware and Config Sanity Report ---"
-echo "Capturing Flake Structure (Flake Integrity Check)..."
-# Use 'nix' command with the features passed via NIX_CONFIG for robustness
-# NOTE: The simplest, most direct way to pass a config string is preferred here.
-NIX_CONFIG="${NIX_FEATURES}" nix flake show .# > "${REPORT_DIR}/flake_structure.txt" || echo "Flake show failed (expected if uncommitted changes exist)."
 
-echo "Capturing Canonical State (Git Status)..."
-git status >> "${REPORT_DIR}/config_status.txt"
-echo "System awareness data captured."
+# --- CRITICAL EXCLUSIVE STEP: MEMORY UPDATE (Only runs with --update-only) ---
+if [ "$1" == "--update-only" ]; then
+    echo "--- FORCING OBI-WAN MEMORY UPDATE (nix flake update) ---"
+    echo "This will reset the flake.lock file and re-index local paths."
 
-# --- Step 3: Conflict-Free Build (The Test) ---
-echo "--- 3. Running Conflict-Free Build (nixos-rebuild build) ---"
-echo "Starting build process with Flake Command enabled. Output is piped to console and log file: ${LOG_FILE}"
+    # Force the memory index update using the modern NIX_CMD and NIX_CONFIG
+    UPDATE_OUTPUT=$(run_nix_command flake update)
+    UPDATE_EXIT_CODE=$?
 
-# NEW FIX: Use 'sudo sh -c' for reliable environment variable passing, preventing shell expansion errors.
-NIX_BUILD_CMD="nixos-rebuild build --flake \"${FLAKE_REF}\" --show-trace"
-
-# The command is wrapped in single quotes for sh -c, which correctly preserves the internal NIX_CONFIG assignment.
-if sudo sh -c "NIX_CONFIG='${NIX_FEATURES}' ${NIX_BUILD_CMD}" 2>&1 | tee "${LOG_FILE}"; then
-    BUILD_STATUS="SUCCESS"
-    echo "✅ BUILD STATUS: SUCCESS. The new configuration compiled conflict-free."
-else
-    BUILD_STATUS="FAILED"
-    echo "❌ BUILD STATUS: FAILED. Check ${LOG_FILE} for trace details." >&2
-    exit 1
-fi
-
-# --- Step 4: Finalize and Switch (The Alignment) ---
-if [ "$BUILD_STATUS" = "SUCCESS" ]; then
-    echo "--- 4. Executing Sacred Field Reset (nixos-rebuild switch) ---"
-    echo "This action commits the new geometric state to the system's core."
-    
-    # NEW FIX: Use 'sudo sh -c' for reliable switch command execution.
-    NIX_SWITCH_CMD="nixos-rebuild switch --flake \"${FLAKE_REF}\""
-
-    if sudo sh -c "NIX_CONFIG='${NIX_FEATURES}' ${NIX_SWITCH_CMD}" 2>&1 | tee -a "${LOG_FILE}"; then
-        echo "🎉 Sacred Field Reset COMPLETE."
-        echo "The NixOS DOJO Mirror is now sovereign on BearsiMac."
-        echo "Next step: Initiate migration of Living Portals (macOS Apps)."
+    if [ $UPDATE_EXIT_CODE -eq 0 ]; then
+        echo "✅ OBI-WAN Memory Index Updated Successfully."
+        echo "Ready for Clean Build."
     else
-        echo "🚨 SWITCH FAILED. The build succeeded, but deployment failed. System state is unknown. Check logs." >&2
+        echo "❌ OBI-WAN Memory Update FAILED. Output:"
+        echo "$UPDATE_OUTPUT" | tee "${REPORT_DIR}/update_log.txt"
         exit 1
     fi
+    exit 0
+fi
+
+
+# --- STEP 2: GENERATING SANITY REPORT ---
+echo "--- 2. Generating Hardware and Config Sanity Report ---"
+
+# Flake Integrity Check
+echo "Capturing Flake Structure (Flake Integrity Check)..."
+FLAKE_SHOW_OUTPUT=$(run_nix_command flake show) || true
+echo "$FLAKE_SHOW_OUTPUT" > "${REPORT_DIR}/flake_structure.txt"
+if [[ $FLAKE_SHOW_OUTPUT != *"error"* ]]; then
+    echo "✅ Flake structure captured successfully."
+else
+    echo "Flake show failed (check ${REPORT_DIR}/flake_structure.txt for details)."
+fi
+
+# Git Status (Canonical State)
+echo "Capturing Canonical State (Git Status)..."
+sudo git status > "${REPORT_DIR}/config_status.txt"
+echo "System awareness data captured."
+
+
+# --- STEP 3: RUN CONFLICT-FREE BUILD ---
+echo "--- 3. Running Conflict-Free Build (nixos-rebuild build) ---"
+echo "Starting build process with Flake Command enabled. Output is piped to console and log file: ${REPORT_DIR}/rebuild_switch_log.txt"
+
+# Run the non-switch build using the robust run_nix_command wrapper
+BUILD_OUTPUT=$(run_nix_command build ".#${TARGET_CONFIG}" --no-build-output)
+BUILD_EXIT_CODE=$?
+
+# Log all output
+echo "$BUILD_OUTPUT" | tee "${REPORT_DIR}/rebuild_switch_log.txt"
+
+if [ $BUILD_EXIT_CODE -eq 0 ]; then
+    echo "✅ BUILD STATUS: SUCCESS. The configuration is conflict-free and ready for switch."
+    echo "Next Action: sudo nixos-rebuild switch --flake ${TARGET_CONFIG}"
+else
+    echo "❌ BUILD STATUS: FAILED. Check ${REPORT_DIR}/rebuild_switch_log.txt for trace details."
+    exit 1
 fi
