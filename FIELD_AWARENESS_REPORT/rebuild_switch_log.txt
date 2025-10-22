@@ -217,4 +217,4 @@ error:
              |                ^
           449|     (f ? __functor && isFunction (f.__functor f));
 
-       error: getting status of '/nix/store/rkjg6na3yi9df13gi7hwzv255f3f6yb2-source/hardware-configuration.nix': No such file or directory
+       error: getting status of '/nix/store/v4knvqkbh94qz5pmh9par1rqnblj7qg2-source/hardware-configuration.nix': No such file or directory
