@@ -51,9 +51,3 @@ out/
 
 # Hardware-specific configs that shouldn't be shared
 hardware-configuration.nix
-
-# FIELD pipeline outputs (scans and logs are system-specific)
-/var/log/FIELD-Scan-*/
-/var/log/FIELD-Apply-*.log
-# But allow the FIELD tools themselves
-!/tools/field/
