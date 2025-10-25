@@ -13,7 +13,7 @@
 # - Chakra configuration consistency
 # =============================================================================
 
-set -euo pipefail
+set -eo pipefail
 
 # ANSI color codes for output
 RED='\033[0;31m'
@@ -35,6 +35,9 @@ ERRORS=0
 WARNINGS=0
 PASSED=0
 
+# State variables
+NIX_AVAILABLE=false
+
 # =============================================================================
 # Helper Functions
 # =============================================================================
@@ -53,17 +56,17 @@ print_section() {
 
 check_pass() {
     echo -e "${GREEN}  ${CHECK} $1${NC}"
-    ((PASSED++))
+    ((PASSED++)) || true
 }
 
 check_fail() {
     echo -e "${RED}  ${CROSS} $1${NC}"
-    ((ERRORS++))
+    ((ERRORS++)) || true
 }
 
 check_warn() {
     echo -e "${YELLOW}  ${WARN} $1${NC}"
-    ((WARNINGS++))
+    ((WARNINGS++)) || true
 }
 
 check_info() {
@@ -77,21 +80,33 @@ check_info() {
 check_nix_installation() {
     print_section "Checking Nix Installation"
     
-    if command -v nix &> /dev/null; then
+    set +e  # Temporarily disable exit on error
+    command -v nix &> /dev/null
+    local nix_found=$?
+    set -e  # Re-enable exit on error
+    
+    if [[ $nix_found -eq 0 ]]; then
         NIX_VERSION=$(nix --version 2>&1 || echo "unknown")
         check_pass "Nix is installed: $NIX_VERSION"
+        NIX_AVAILABLE=true
+        
+        # Check for experimental features
+        set +e
+        nix flake --version &> /dev/null 2>&1
+        local flakes_enabled=$?
+        set -e
+        
+        if [[ $flakes_enabled -eq 0 ]]; then
+            check_pass "Experimental features (flakes) are enabled"
+        else
+            check_warn "Experimental features may not be enabled"
+            check_info "Enable with: nix.settings.experimental-features = [ \"nix-command\" \"flakes\" ];"
+        fi
     else
-        check_fail "Nix is not installed or not in PATH"
+        check_warn "Nix is not installed or not in PATH"
         check_info "Install Nix from: https://nixos.org/download.html"
-        return 1
-    fi
-    
-    # Check for experimental features
-    if nix --version &> /dev/null && nix flake --version &> /dev/null 2>&1; then
-        check_pass "Experimental features (flakes) are enabled"
-    else
-        check_warn "Experimental features may not be enabled"
-        check_info "Enable with: nix.settings.experimental-features = [ \"nix-command\" \"flakes\" ];"
+        check_info "Continuing with checks that don't require Nix..."
+        NIX_AVAILABLE=false
     fi
 }
 
@@ -173,7 +188,7 @@ check_chakra_modules() {
     
     for chakra in "${chakras[@]}"; do
         if [[ -d "chakras/$chakra" ]]; then
-            ((chakra_count++))
+            ((chakra_count++)) || true
             
             # Check for configuration files
             if [[ -f "chakras/$chakra/default.nix" ]]; then
@@ -239,7 +254,7 @@ check_file_references() {
 check_nix_syntax() {
     print_section "Checking Nix Syntax"
     
-    if ! command -v nix &> /dev/null; then
+    if [[ "${NIX_AVAILABLE:-false}" != "true" ]]; then
         check_warn "Cannot validate Nix syntax - Nix not installed"
         return
     fi
@@ -251,12 +266,12 @@ check_nix_syntax() {
     local files_checked=0
     
     while IFS= read -r file; do
-        ((files_checked++))
+        ((files_checked++)) || true
         if nix-instantiate --parse "$file" &>/dev/null; then
             : # Syntax OK - don't spam output
         else
             check_fail "Syntax error in: $file"
-            ((syntax_errors++))
+            ((syntax_errors++)) || true
         fi
     done <<< "$nix_files"
     
@@ -270,7 +285,7 @@ check_nix_syntax() {
 validate_flake() {
     print_section "Validating Flake Metadata"
     
-    if ! command -v nix &> /dev/null; then
+    if [[ "${NIX_AVAILABLE:-false}" != "true" ]]; then
         check_warn "Cannot validate flake - Nix not installed"
         return
     fi
