@@ -11,6 +11,11 @@
 
   outputs = { self, nixpkgs, dot-hive }: let
     pkgs_x86 = nixpkgs.legacyPackages.x86_64-linux;
+    
+    # Helper to conditionally import hardware-configuration.nix if it exists
+    hardwareConfig = if builtins.pathExists ./hardware-configuration.nix
+      then [ ./hardware-configuration.nix ]
+      else [];
   in {
     nixosConfigurations = {
       BearsiMac = nixpkgs.lib.nixosSystem {
@@ -19,11 +24,9 @@
           inherit self nixpkgs dot-hive;
         };
         modules = [
-          # Local hardware and overrides
-          ./hardware-configuration.nix
-          # Assuming local-overrides.nix exists (if not, add an empty one or remove this line)
-          # ./local-overrides.nix 
-
+          # Local hardware configuration (generated on target system)
+          # Generate with: sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
+        ] ++ hardwareConfig ++ [
           # Aggregated chakra modules from dot-hive
           dot-hive.nixosModules.default
 

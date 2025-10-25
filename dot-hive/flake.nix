@@ -8,6 +8,12 @@
   outputs = { self, nixpkgs }: {
     nixosModules.default = { config, pkgs, lib, ... }: {
       imports = [
+        # Service module definitions (must be imported before chakras)
+        ../modules/services/dojo-nodes.nix
+        ../modules/services/metatron-cube.nix
+        ../modules/services/atlas-frontend.nix
+        ../modules/services/tata8i-pulse-engine.nix
+        
         # ◎▼▲→◼︎ Sacred Geometry Bridge - Metatron Cube Q-dimensional Translator
         ../sacred_geometry/metatron_cube_translator.nix
         

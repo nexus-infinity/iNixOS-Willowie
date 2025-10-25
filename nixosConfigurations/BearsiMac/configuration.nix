@@ -1,15 +1,8 @@
-{ config, lib, pkgs, dojo, root-chakra, sacral-chakra, solar-chakra, heart-chakra, throat-chakra, third-eye-chakra, crown-chakra, ... }:
+{ config, lib, pkgs, ... }:
 {
-  imports = [
-    # Import chakra-specific configurations
-    root-chakra.nixosModules.default
-    sacral-chakra.nixosModules.default
-    solar-chakra.nixosModules.default
-    heart-chakra.nixosModules.default
-    throat-chakra.nixosModules.default
-    third-eye-chakra.nixosModules.default
-    crown-chakra.nixosModules.default
-  ];
+  # NOTE: Chakra modules are imported via dot-hive aggregator in main flake.nix
+  # Individual chakra configurations are automatically included
+  imports = [ ];
 
   # Basic system configuration
   networking = {
@@ -61,6 +54,12 @@
     wget
     curl
   ];
+  
+  # Nix configuration
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
+  };
 
   # Enable important services
   services = {
