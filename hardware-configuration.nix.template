@@ -1,0 +1,102 @@
+# hardware-configuration.nix.template
+#
+# This is a TEMPLATE for hardware-configuration.nix
+# DO NOT use this file directly - it contains placeholder values
+#
+# To generate the actual hardware-configuration.nix for your system:
+#   sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
+#
+# Then review and adjust the generated file as needed.
+#
+# Note: hardware-configuration.nix is in .gitignore because it's hardware-specific
+# and should be generated on the target machine.
+
+{ config, lib, pkgs, modulesPath, ... }:
+
+{
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
+
+  # Boot Configuration
+  # This will be auto-detected by nixos-generate-config
+  boot.initrd.availableKernelModules = [ 
+    # Example modules - YOUR SYSTEM WILL HAVE DIFFERENT ONES
+    # "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ]; # or "kvm-amd" for AMD processors
+  boot.extraModulePackages = [ ];
+
+  # Filesystem Configuration
+  # IMPORTANT: Replace UUIDs with actual values from your system
+  # Find UUIDs with: sudo blkid
+  #
+  # Example structure (CUSTOMIZE FOR YOUR SYSTEM):
+  
+  # Root filesystem
+  # fileSystems."/" = {
+  #   device = "/dev/disk/by-uuid/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+  #   fsType = "ext4";
+  #   # OR for btrfs with subvolumes:
+  #   # fsType = "btrfs";
+  #   # options = [ "subvol=@" "compress=zstd" "noatime" ];
+  # };
+
+  # Boot partition (EFI System Partition)
+  # fileSystems."/boot" = {
+  #   device = "/dev/disk/by-uuid/XXXX-XXXX";
+  #   fsType = "vfat";
+  #   options = [ "fmask=0022" "dmask=0022" ];
+  # };
+
+  # Swap configuration (if using swap partition)
+  # swapDevices = [{
+  #   device = "/dev/disk/by-uuid/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+  # }];
+
+  # Or for swap file:
+  # swapDevices = [{
+  #   device = "/swapfile";
+  #   size = 8192; # Size in MB
+  # }];
+
+  # Networking hardware
+  # Uncomment and adjust based on your hardware
+  # networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
+
+  # CPU microcode updates
+  # Uncomment the appropriate line for your CPU
+  # hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # Graphics
+  # Uncomment and adjust based on your GPU
+  # hardware.opengl = {
+  #   enable = true;
+  #   driSupport = true;
+  #   driSupport32Bit = true;
+  # };
+
+  # For NVIDIA GPUs (uncomment if needed):
+  # services.xserver.videoDrivers = [ "nvidia" ];
+  # hardware.nvidia = {
+  #   modesetting.enable = true;
+  #   powerManagement.enable = false;
+  #   powerManagement.finegrained = false;
+  #   open = false;
+  #   nvidiaSettings = true;
+  #   package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # };
+
+  # For AMD GPUs (uncomment if needed):
+  # services.xserver.videoDrivers = [ "amdgpu" ];
+
+  # Power management
+  # powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+  # High DPI settings (for 4K/5K displays)
+  # hardware.video.hidpi.enable = lib.mkDefault true;
+}
