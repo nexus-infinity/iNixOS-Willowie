@@ -24,6 +24,7 @@
 
           # Aggregator chakra module that uses sacredGeometryPath + chakrasPath
           ./dot-hive/default.nix
+          ./modules/services/atlas-frontend.nix 
 
           # Machine-specific config
           ./nixosConfigurations/BearsiMac/configuration.nix

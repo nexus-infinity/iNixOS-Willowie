@@ -12,7 +12,7 @@
       sacred_hz = "symbolic";  # Beyond audible frequency
       mathematical_resonance = 23;  # Prime number consciousness
       solfeggio = "AUM_TAT_SAT";  # Truth mantra
-      fibonacci_alignment = [23, 46, 69, 92];  # Prime harmonics
+      fibonacci_alignment = [23 46 69 92 ];  # Prime harmonics
     };
     
     # Living System Embodiment
@@ -46,7 +46,7 @@
       tiny_llm_path = "/app/dna/universal_wisdom_dna.py";
       model_identifier = "jnana-omniscience-v1";
       base_model = "llama3-405b";  # Largest model for universal knowledge
-      secondary_models = ["granite-3b", "phi-3-mini"];  # Mathematical reasoning
+      secondary_models = ["granite-3b" "phi-3-mini"];  # Mathematical reasoning
       purpose = "Repository of irrefutable universal truth and wisdom";
       learning_rate = 0.0001;  # Ultra-slow, ultra-deep learning
       max_tokens = 32768;  # Maximum context for complex knowledge

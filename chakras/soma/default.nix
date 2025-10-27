@@ -11,7 +11,7 @@
     frequency = {
       sacred_hz = 1080;  # Manifestation frequency
       solfeggio = "OM";  # Universal sound
-      harmonic_series = [19, 38, 57, 76];  # Prime harmonics
+      harmonic_series = [19 38 57 76 ];  # Prime harmonics
     };
     
     # Living System Embodiment
