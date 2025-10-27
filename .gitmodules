@@ -1,0 +1,3 @@
+[submodule "v0-aegis-o"]
+	path = v0-aegis-o
+	url = https://github.com/nexus-infinity/v0-aegis-o.git
