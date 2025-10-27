@@ -3,51 +3,56 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-
-    # Aggregator flake (dot-hive)
-    # FIX: Changing 'path' attribute to 'url = "path:..."' to resolve the flake input error.
-    dot-hive.url = "path:./dot-hive"; 
   };
 
-  outputs = { self, nixpkgs, dot-hive }: let
-    pkgs_x86 = nixpkgs.legacyPackages.x86_64-linux;
+  outputs = { self, nixpkgs }: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations = {
       BearsiMac = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit self nixpkgs dot-hive;
-        };
-        modules = [
-          # Local hardware and overrides
-          ./hardware-configuration.nix
-          # Assuming local-overrides.nix exists (if not, add an empty one or remove this line)
-          # ./local-overrides.nix 
+        inherit system;
 
-          # Aggregated chakra modules from dot-hive
-          dot-hive.nixosModules.default
+        specialArgs = {
+          inherit self nixpkgs;
+          sacredGeometryPath = ./sacred_geometry;
+          chakrasPath = ./chakras;
+        };
+
+        modules = [
+          ./hardware-configuration.nix
+
+          # Aggregator chakra module that uses sacredGeometryPath + chakrasPath
+          ./dot-hive/default.nix
 
           # Machine-specific config
           ./nixosConfigurations/BearsiMac/configuration.nix
+
+          # Extra Nix settings module (inline)
+          ({ pkgs, ... }: {
+            nix.settings = {
+              auto-optimise-store = true;
+              experimental-features = [ "nix-command" "flakes" ];
+            };
+          })
         ];
       };
     };
 
-    # Dev shell for non-destructive validation
-    devShells = {
-      "x86_64-linux" = pkgs_x86.mkShell {
-        buildInputs = [ pkgs_x86.git pkgs_x86.nix ];
-        shellHook = ''
-          echo "Dev shell active. Useful commands:
-            - nix flake show
-            - nixos-rebuild build --flake .#BearsiMac
-            - nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel
-          "
-        '';
-      };
+    devShells.${system} = pkgs.mkShell {
+      buildInputs = [ pkgs.git pkgs.nix ];
+      shellHook = ''
+        echo "Dev shell active. Useful commands:
+          - nix flake show
+          - nixos-rebuild build --flake .#BearsiMac
+          - nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel
+        "
+      '';
     };
 
-    formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
+    # nixpkgs-fmt formatter support (optional if available)
+    formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
+      nixpkgs.legacyPackages.${system}.nixpkgs-fmt
+    );
   };
 }
-
