@@ -413,7 +413,10 @@ if [ -f "${RAW_DIR}/nixos-hardware-config.txt" ]; then
   DUPLICATE_FS=$(grep -E "^\s*fileSystems\." "${RAW_DIR}/nixos-hardware-config.txt" | sort | uniq -d || true)
   if [ -n "$DUPLICATE_FS" ]; then
     FRICTION_REPORT="${FRICTION_REPORT}**⚠ Duplicate filesystem declarations detected**\n"
-    printf '%s\n' "⚠ **WARNING:** Duplicate filesystem declarations found:" '```' "$DUPLICATE_FS" '```' | sed -i -e '/DUPLICATE_FS_PLACEHOLDER/{ r /dev/stdin' -e 'd' -e '}' "${SCAN_DIR}/report.md"
+    printf '%s\n' "⚠ **WARNING:** Duplicate filesystem declarations found:" '```' "$DUPLICATE_FS" '```' | sed -i '/DUPLICATE_FS_PLACEHOLDER/{
+      r /dev/stdin
+      d
+    }' "${SCAN_DIR}/report.md"
   else
     sed -i "s|DUPLICATE_FS_PLACEHOLDER|✓ No duplicate filesystem declarations|g" "${SCAN_DIR}/report.md"
   fi
@@ -426,7 +429,10 @@ if [ -f "${RAW_DIR}/nixos-hardware-config.txt" ]; then
   TRANSIENT_DEV=$(grep -E "(overlay|/etc/nix|/nix/store)" "${RAW_DIR}/nixos-hardware-config.txt" || true)
   if [ -n "$TRANSIENT_DEV" ]; then
     FRICTION_REPORT="${FRICTION_REPORT}**⚠ Transient devices in configuration**\n"
-    printf '%s\n' "⚠ **WARNING:** Transient devices found:" '```' "$TRANSIENT_DEV" '```' | sed -i -e '/TRANSIENT_DEV_PLACEHOLDER/{ r /dev/stdin' -e 'd' -e '}' "${SCAN_DIR}/report.md"
+    printf '%s\n' "⚠ **WARNING:** Transient devices found:" '```' "$TRANSIENT_DEV" '```' | sed -i '/TRANSIENT_DEV_PLACEHOLDER/{
+      r /dev/stdin
+      d
+    }' "${SCAN_DIR}/report.md"
   else
     sed -i "s|TRANSIENT_DEV_PLACEHOLDER|✓ No transient devices detected|g" "${SCAN_DIR}/report.md"
   fi
@@ -439,7 +445,10 @@ if [ -f "${RAW_DIR}/nixos-configuration.txt" ]; then
   BOOT_DUP=$(grep -E "boot\.loader\.(systemd-boot|grub)\.enable" "${RAW_DIR}/nixos-configuration.txt" | sort | uniq -d || true)
   if [ -n "$BOOT_DUP" ]; then
     FRICTION_REPORT="${FRICTION_REPORT}**⚠ Duplicate boot loader options**\n"
-    printf '%s\n' "⚠ **WARNING:** Duplicate boot loader options:" '```' "$BOOT_DUP" '```' | sed -i -e '/BOOT_DUP_PLACEHOLDER/{ r /dev/stdin' -e 'd' -e '}' "${SCAN_DIR}/report.md"
+    printf '%s\n' "⚠ **WARNING:** Duplicate boot loader options:" '```' "$BOOT_DUP" '```' | sed -i '/BOOT_DUP_PLACEHOLDER/{
+      r /dev/stdin
+      d
+    }' "${SCAN_DIR}/report.md"
   else
     sed -i "s|BOOT_DUP_PLACEHOLDER|✓ No duplicate boot loader options|g" "${SCAN_DIR}/report.md"
   fi
@@ -451,7 +460,10 @@ if [ -z "$FRICTION_REPORT" ]; then
   FRICTION_REPORT="✓ **No friction detected** - Configuration appears clean"
 fi
 
-printf '%s\n' "$FRICTION_REPORT" | sed -i -e '/FRICTION_PLACEHOLDER/{ r /dev/stdin' -e 'd' -e '}' "${SCAN_DIR}/report.md"
+printf '%s\n' "$FRICTION_REPORT" | sed -i '/FRICTION_PLACEHOLDER/{
+  r /dev/stdin
+  d
+}' "${SCAN_DIR}/report.md"
 
 # Generate HTML report
 echo "Generating HTML report..."
