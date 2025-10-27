@@ -57,6 +57,12 @@
     curl
     zsh # Add zsh package if setting it as default shell
   ];
+  
+  # Nix configuration
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
+  };
 
   # Enable important services (remains the same)
   services = {

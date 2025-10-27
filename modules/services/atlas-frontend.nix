@@ -1,32 +1,37 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 let
   frontendUser = "atlas";
 in
 {
+  # Atlas Frontend Service Module
+  # Ghost alignment interface for the sacred geometry system
+
   options.services.atlasFrontend = {
-    enable = lib.mkEnableOption "ATLAS Frontend service";
+    enable = mkEnableOption "Atlas Frontend ghost alignment interface";
 
-    listenPort = lib.mkOption {
-      type = lib.types.port;
+    listenPort = mkOption {
+      type = types.port;
       default = 3000;
-      description = "Port to serve the frontend on";
+      description = "Port to listen on for the Atlas frontend";
     };
 
-    pulseEngineSource = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "MQTT pulse source";
+    pulseEngineSource = mkOption {
+      type = types.str;
+      default = "mqtt://localhost:1883/dojo/pulse";
+      description = "MQTT source for pulse engine data";
     };
 
-    pulseSyncSource = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "MQTT sync source";
+    pulseSyncSource = mkOption {
+      type = types.str;
+      default = "mqtt://localhost:1883/dojo/nodes/pulse/#";
+      description = "MQTT source for pulse synchronization";
     };
   };
 
-  config = lib.mkIf config.services.atlasFrontend.enable {
+  config = mkIf config.services.atlasFrontend.enable {
     users.users.${frontendUser} = {
       isSystemUser = true;
       group = frontendUser;
@@ -51,5 +56,11 @@ in
         ];
       };
     };
+
+    warnings = [ ''
+      Atlas Frontend is configured to listen on port ${toString config.services.atlasFrontend.listenPort}.
+      Service implementation is pending. This provides the ghost alignment interface.
+    '' ];
+    # networking.firewall.allowedTCPPorts = [ config.services.atlasFrontend.listenPort ];
   };
 }
