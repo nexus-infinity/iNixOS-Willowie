@@ -50,7 +50,7 @@ out/
 /nix/var/nix/profiles/
 
 # Hardware-specific configs that shouldn't be shared
-hardware-configuration.nix
+# hardware-configuration.nix
 
 # FIELD pipeline outputs (scans and logs are system-specific)
 /var/log/FIELD-Scan-*/
