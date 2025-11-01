@@ -1,374 +1,195 @@
-# GitHub Copilot Instructions
-## iNixOS-Willowie — BearsiMac Kitchen Configuration
+# Copilot Instructions for iNixOS-Willowie
+
+This repository contains a NixOS configuration for the BearsiMac system, featuring a modular architecture inspired by sacred geometry and chakra systems.
+
+## Project Overview
+
+- **Type**: NixOS Flake-based configuration
+- **Target System**: BearsiMac (Willowie Kitchen)
+- **NixOS Version**: 23.11
+- **Architecture**: Modular system with chakra-based organization and sacred geometry patterns
+
+## Code Style and Conventions
+
+### Nix Code Standards
+
+- Use 2-space indentation for Nix files
+- Follow standard Nix formatting with `nixpkgs-fmt` (available via `nix fmt`)
+- Use `with lib;` at the top of module files for cleaner option definitions
+- Prefer `mkIf` for conditional configuration blocks
+- Use `mkOption` with proper type declarations and descriptions
+
+### Module Structure
+
+- **Service modules**: Place in `modules/services/`
+- **System modules**: Place in `modules/system/`
+- **Chakra modules**: Spiritual/conceptual organization in `chakras/` directory
+- Each module should follow the standard NixOS module pattern:
+  ```nix
+  { config, pkgs, lib, ... }:
+  
+  with lib;
+  
+  {
+    options.services.myService = {
+      enable = mkEnableOption "My Service";
+      port = mkOption {
+        type = types.port;
+        default = 8080;
+        description = "Port to listen on";
+      };
+    };
+    
+    config = mkIf config.services.myService.enable {
+      systemd.services.my-service = {
+        description = "My Service";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.myPackage}/bin/myservice";
+        };
+      };
+    };
+  }
+  ```
+
+### File Naming
 
-This repository uses the **Observer-Architect-Weaver Triad** ontology for AI collaboration and code development.
+- Use kebab-case for file and directory names (e.g., `atlas-frontend.nix`)
+- Module files should be named `default.nix` within their directories or descriptive names in module directories
+- Configuration files use `.nix` extension
 
----
+### Comments and Documentation
+
+- Add descriptive comments for complex logic or spiritual/metaphysical concepts
+- Document options with clear descriptions
+- Use inline comments for sacred geometry symbols and their meanings
+- Include warnings for stub implementations or pending features
 
-## 🌐 Core Framework
+## Architecture Patterns
 
-### Guiding Principle
+### Sacred Geometry System
 
-*Facilitate the experience of life through the seamless integration of technology into everyday processes.*
+- The configuration uses a "sacred geometry" metaphor with:
+  - **Metatron Cube**: Central translator/bridge (`sacred_geometry/metatron_cube_translator.nix`)
+  - **Chakra System**: Nine chakras organized as petals in a hexagonal hive
+  - **DOJO Nodes**: Distributed service architecture
+  - **ATLAS Frontend**: Ghost alignment interface
 
-### Reference Documents
+### Modular Organization
 
-- **Main Ontology**: `docs/ontology/observer-architect-weaver.md`
-- **Integration Guide**: `docs/ontology/copilot-integration.md`
-- **Meta-Prompt Examples**: `docs/ontology/meta-prompt-examples.md`
-- **Visual Maps**: `docs/ontology/visual-ontology.md`
-- **Schema Files**: `docs/ontology/triad-schema.yaml` and `triad-schema.json`
-- **Index**: `docs/ontology/README.md`
+- **Chakras**: Conceptual groupings (ajna, anahata, jnana, manipura, muladhara, sahasrara, soma, svadhisthana, vishuddha)
+- **dot-hive**: Aggregator module that imports all chakras
+- **specialArgs**: Pass paths via `sacredGeometryPath` and `chakrasPath`
 
----
+## Building and Testing
 
-## 🔺 The Triad Roles
+### Prerequisites
 
-When working with code in this repository, adopt one of three roles based on the task:
+- NixOS with experimental features enabled:
+  ```nix
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  ```
 
-### ● Observer (Perceive)
-**Use for:** Code reviews, analysis, pattern detection, quality assessments
+### Build Commands
 
-**Approach:**
-- **Geometric**: Map component relationships, dependencies, and flow patterns
-- **Semantic**: Check naming consistency, abstraction levels, and meaning coherence
-- **Temporal**: Track how code evolved, identify technical debt, note change patterns
+- **Evaluate configuration**: `./scripts/evaluate-environment.sh`
+- **Test build**: `nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel`
+- **Format code**: `nix fmt`
+- **Switch system**: `sudo nixos-rebuild switch --flake .#BearsiMac`
 
-**Validation**: External + internal resonance with best practices
+### Validation
 
-### ▲ Architect (Design)
-**Use for:** System design, API planning, schema design, refactoring strategy
+- Run evaluation script before making PRs
+- Ensure no build-blocking errors
+- Hardware configuration may be missing in CI (expected)
+- Check that all imports resolve correctly
 
-**Approach:**
-- **Geometric**: Define proportion, symmetry, and structural constraints
-- **Semantic**: Translate concepts into clear blueprints with meaning integrity
-- **Temporal**: Plan evolutionary pathways, version lineage, migration strategies
+## Security Best Practices
 
-**Validation**: Semantic and geometric coherence
+- Never hardcode secrets or credentials in Nix files
+- Use systemd service hardening options when available
+- Keep user accounts minimal and system-only where appropriate
+- Review firewall rules before enabling services
 
-### ◼︎ Weaver (Embody)
-**Use for:** Feature implementation, UI/UX work, integration, optimization
+## Service Development
 
-**Approach:**
-- **Geometric**: Connect components into living circuits without breaking flows
-- **Semantic**: Embed meaning in user experience and interfaces
-- **Temporal**: Sustain rhythm of use, maintain adaptability under change
+### Creating New Services
 
-**Validation**: Temporal adaptability and usability
+1. Create module in `modules/services/your-service.nix`
+2. Follow the established pattern with `options` and `config` sections
+3. Create systemd service with proper user isolation
+4. Document MQTT sources or other configuration options
+5. Add warnings for stub implementations
+6. Consider chakra alignment if conceptually relevant
 
----
+### Environment Variables
 
-## 🔄 Workflow Integration
+- Pass configuration through systemd service environment
+- Use `${toString ...}` for numeric values in environment strings
+- Reference options via `config.services.yourService.option`
 
-### When Suggesting Code
+## Documentation
 
-1. **Identify your role** for the current task (Observer/Architect/Weaver)
-2. **Apply perspectives** (Geometric, Semantic, Temporal)
-3. **Validate** using the role's validation method
-4. **Consider External Observer** perspective for field resonance
+- Keep `README-QUICKSTART.md` updated with user-facing setup steps
+- Document technical details in `docs/CONFIGURATION_REVIEW.md`
+- Add runbooks for operational procedures in `docs/runbooks/`
+- Update `REFACTORING_SUMMARY.md` for major architectural changes
 
-### Example Code Suggestion Format
+## Common Pitfalls
 
-```python
-# ◎ OBSERVER NOTE:
-# Geometric: This function has circular dependency with UserService
-# Semantic: Function name 'process' is too generic
-# Temporal: Added 3 months ago, has grown from 10 to 100 lines
+- **Missing hardware-configuration.nix**: Use conditional imports or templates
+- **Undefined chakra references**: Ensure all chakras are imported in `dot-hive/default.nix`
+- **Port conflicts**: Check existing services before assigning ports
+- **Missing dependencies**: Declare all package dependencies in module
+- **Experimental features**: Required for flakes, must be explicitly enabled
 
-# ▲ ARCHITECT DESIGN:
-# Geometric: Break into smaller, single-responsibility functions
-# Semantic: Use domain language (authenticate_user, validate_credentials)
-# Temporal: Plan for future OAuth integration
+## Spiritual/Metaphysical Context
 
-# ◼︎ WEAVER IMPLEMENTATION:
-# Geometric: Integrated with existing auth flow without disruption
-# Semantic: Clear function names guide developers
-# Temporal: Backward compatible, supports gradual migration
-```
+This configuration embraces a holistic worldview where:
+- Technology interfaces with consciousness ("bumblebee consciousness")
+- Systems align with sacred patterns and frequencies
+- Components are organized by energy centers (chakras)
+- The "impossible flight" through collective intelligence is valued
 
----
+Respect these metaphors when extending the system, but ensure all code remains functional and maintainable.
 
-## 🏗️ Repository-Specific Context
+## Testing Requirements
 
-### Architecture Overview
+- Verify configuration evaluates without errors
+- Test builds complete successfully
+- Check that systemd services have valid configurations
+- Ensure modules can be imported without missing dependencies
+- Run `./scripts/evaluate-environment.sh` before submitting changes
 
-This is a **NixOS configuration repository** with:
-- **Main system**: BearsiMac (iMac in Willowie kitchen)
-- **Architecture**: Chakra-based modular system (9 chakras)
-- **Sacred Components**: OBI-WAN, TATA, Atlas triad
-- **Development**: Nix flakes, NixOS modules, shell scripts
+## Dependencies
 
-### Sacred Triad Alignment
-
-The Observer-Architect-Weaver framework aligns with existing sacred components:
-
-| OAW Triad | Sacred Triad | Function |
-|-----------|--------------|----------|
-| **Observer** | ◎_OBI-WAN | Quantum observer, field sensor |
-| **Architect** | ◎_TATA | Truth anchor, structural design |
-| **Weaver** | ◎_Atlas | Field coordinator, flow director |
-
-### Key Technologies
+- Avoid adding unnecessary dependencies
+- Use packages from nixpkgs when possible
+- Document any new service dependencies clearly
+- Consider the minimal nature of NixOS configurations
 
-- **Nix/NixOS**: Declarative system configuration
-- **Flakes**: Reproducible builds and development environments
-- **Chakras**: Modular subsystems (muladhara, svadhisthana, etc.)
-- **FIELD**: Field intelligence environment
-- **DOJO**: Distributed processing nodes
-
----
-
-## 📋 Common Tasks & Roles
-
-### Code Review → Observer Role
-
-```yaml
-Role: Observer
-Focus:
-  - Map Nix module dependencies (geometric)
-  - Check semantic consistency in naming
-  - Identify temporal patterns in configuration evolution
-Validate: Against NixOS best practices and sacred triad alignment
-```
-
-### Module Design → Architect Role
-
-```yaml
-Role: Architect
-Focus:
-  - Design clear module boundaries (geometric)
-  - Define meaningful option names (semantic)
-  - Plan for future NixOS version upgrades (temporal)
-Validate: Coherence with existing chakra structure
-```
-
-### Feature Implementation → Weaver Role
-
-```yaml
-Role: Weaver
-Focus:
-  - Integrate new services smoothly (geometric)
-  - Ensure configuration is self-documenting (semantic)
-  - Maintain system stability during changes (temporal)
-Validate: Test builds and actual system behavior
-```
-
----
-
-## 🎯 Field Integration Principles
-
-Always consider these principles when generating code or suggestions:
-
-### 1. Field Resonance
-- **Technology adapts to context**: Willowie kitchen environment, BearsiMac hardware
-- **Social geometry**: Single user (jbear) with specific workflows
-- **Environmental fit**: Home network, local development setup
-
-### 2. Semantic Transparency
-- **Users feel the meaning**: Configuration should be self-explanatory
-- **Intent is clear**: Comments and naming reveal purpose
-- **Not just efficiency**: Maintain human comprehensibility
-
-### 3. Temporal Empathy
-- **Evolution with use**: System grows with user needs
-- **Respect rhythm**: Don't over-engineer, don't under-design
-- **Natural pacing**: Changes match learning curve and adoption rate
-
----
-
-## 🔍 Quality Checks
-
-Before finalizing suggestions, validate:
-
-### Geometric Integrity
-- [ ] Dependencies are clear and acyclic
-- [ ] Module boundaries are well-defined
-- [ ] Data flows in logical directions
-- [ ] Structure matches intention
-
-### Semantic Coherence
-- [ ] Names reflect actual purpose
-- [ ] Abstraction levels are consistent
-- [ ] Meaning is preserved across layers
-- [ ] Documentation matches implementation
-
-### Temporal Soundness
-- [ ] Changes are backward compatible when needed
-- [ ] Migration paths are clear
-- [ ] Evolution patterns are sustainable
-- [ ] Memory/lineage is preserved
-
-### External Resonance
-- [ ] Follows NixOS conventions
-- [ ] Aligns with sacred triad principles
-- [ ] Integrates naturally with chakra system
-- [ ] Serves actual user needs
-
----
-
-## 🛠️ Development Commands
-
-When suggesting build/test commands:
-
-```bash
-# Build without switching (safe testing)
-nixos-rebuild build --flake .#BearsiMac
-
-# Enter development shell
-nix develop .#x86_64-linux
-
-# Format Nix files
-nix fmt
-
-# Show flake outputs
-nix flake show
-```
-
----
-
-## 📝 Commit Message Format
-
-Use triad-aware commit messages:
+## File Organization
 
 ```
-[Observer] Detect circular dependency in auth module
-
-Geometric: user-auth and auth-user create cycle
-Semantic: Responsibilities not clearly separated
-Temporal: Issue emerged after recent feature additions
+.
+├── chakras/              # Spiritual/conceptual organization
+├── configuration.nix     # Legacy configuration (use flake.nix)
+├── docs/                 # Documentation
+├── dot-hive/            # Chakra aggregator module
+├── flake.nix            # Main flake configuration
+├── hardware-configuration.nix  # Target system hardware
+├── modules/             # Custom NixOS modules
+│   ├── services/        # Service definitions
+│   └── system/          # System configurations
+├── nixosConfigurations/ # Per-machine configurations
+├── sacred_geometry/     # Core translation/bridge logic
+├── scripts/             # Utility scripts
+└── tools/               # Development tools
 ```
 
-```
-[Architect] Design new authentication structure
+## Getting Help
 
-Geometric: Clear layers - auth, user, policy
-Semantic: Single responsibility per layer
-Temporal: Migration path via feature flag
-```
-
-```
-[Weaver] Implement layered authentication
-
-Geometric: Integrated without breaking existing flows
-Semantic: User experience unchanged, internals clearer
-Temporal: Gradual rollout with fallback to old auth
-```
-
----
-
-## 🌀 Multi-Perspective Analysis
-
-When analyzing complex issues, use all three perspectives:
-
-### Example: Performance Problem
-
-**Geometric Analysis:**
-- Map the data flow from request to response
-- Identify bottlenecks in the circuit
-- Check for unnecessary loops or cycles
-
-**Semantic Analysis:**
-- Verify functions do what their names suggest
-- Check if abstractions match problem domain
-- Ensure caching keys are meaningful
-
-**Temporal Analysis:**
-- When did performance degrade?
-- How has traffic patterns evolved?
-- Is this sustainable under growth?
-
----
-
-## 🔐 Security Considerations
-
-Apply triad framework to security:
-
-- **Observer**: Detect vulnerabilities, map attack surfaces
-- **Architect**: Design defense-in-depth strategies
-- **Weaver**: Implement security without breaking usability
-- **External Observer**: Validate against security standards (OWASP, etc.)
-
----
-
-## 📚 Learning Resources
-
-For deeper understanding:
-
-1. Read `docs/ontology/observer-architect-weaver.md` for complete framework
-2. Review `docs/ontology/meta-prompt-examples.md` for practical patterns
-3. Check `docs/ontology/visual-ontology.md` for visual representations
-4. See `WARP.md` for NixOS-specific architecture details
-5. Read `◎_vault/◎_README_sacred_triad.md` for sacred alignment
-
----
-
-## ✨ Best Practices
-
-### DO:
-- ✅ Declare your triad role for each task
-- ✅ Apply all three perspectives (geometric, semantic, temporal)
-- ✅ Validate with external observer lens
-- ✅ Maintain field resonance with environment
-- ✅ Preserve sacred triad alignment
-
-### DON'T:
-- ❌ Jump to implementation without observation or design
-- ❌ Ignore temporal implications of changes
-- ❌ Break semantic coherence for quick fixes
-- ❌ Disrupt geometric balance for features
-- ❌ Forget external validation
-
----
-
-## 🎨 Example: Complete Feature Flow
-
-```yaml
-# Phase 1: Observer
-Task: Analyze current SSH configuration
-Geometric: Map how SSH integrates with system
-Semantic: Understand security semantics
-Temporal: Review SSH config evolution
-Output: Observations document
-
-# Phase 2: Architect
-Input: Observer findings
-Task: Design improved SSH setup
-Geometric: Clear separation of keys, config, services
-Semantic: Meaningful key names and access policies
-Temporal: Plan for key rotation and updates
-Output: Technical design
-
-# Phase 3: Weaver
-Input: Architect design
-Task: Implement new SSH configuration
-Geometric: Integrate without breaking existing connections
-Semantic: Clear documentation and comments
-Temporal: Graceful migration from old to new
-Output: Working configuration with tests
-
-# Phase 4: External Observer
-Task: Validate implementation
-Check: Security best practices compliance
-Check: User experience and accessibility
-Check: Long-term maintainability
-Output: Validation report
-```
-
----
-
-## 🌟 Closing Guidance
-
-Remember: The goal is not just to write code, but to **facilitate the experience of life through seamless technology integration**.
-
-Every suggestion should:
-- Serve the actual human user (jbear at BearsiMac)
-- Integrate naturally with the Willowie kitchen environment
-- Maintain harmony with the sacred triad (OBI-WAN, TATA, Atlas)
-- Preserve the living intelligence of the chakra system
-- Enable technology to breathe with the rhythm of use
-
----
-
-*Use the Observer-Architect-Weaver Triad to bring geometric integrity, semantic coherence, and temporal awareness to all code and configuration changes.*
-
-◎ ▲ ◼︎
+- Review `README-QUICKSTART.md` for setup guidance
+- Check `docs/CONFIGURATION_REVIEW.md` for technical details
+- Examine existing modules for patterns and conventions
+- Consult NixOS manual for standard module development: https://nixos.org/manual/nixos/stable/
