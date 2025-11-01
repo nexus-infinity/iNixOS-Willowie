@@ -1,6 +1,106 @@
 # GitHub Copilot Instructions
 ## iNixOS-Willowie — BearsiMac Kitchen Configuration
 
+# Normative Language
+This document uses RFC 2119 keywords. **MUST**, **SHOULD**, and **MAY** indicate requirement levels for agents and contributors.
+
+# Safety & Scope
+These instructions are for software behavior and artistic/UX signaling only. They **MUST NOT** be interpreted as medical, therapeutic, or health claims.
+
+# Frequency Taxonomy (Literal, Machine-Actionable)
+Agents **MUST** treat the following mappings as concrete specifications. Tolerances are provided to account for device drift.
+
+## Audio (Sound) — target center frequency ± tolerance
+| Chakra        | Center (Hz) | Tolerance (±Hz) | MIDI Approx |
+|---------------|-------------|-----------------|-------------|
+| Muladhara     | 256         | 3               | C4          |
+| Svadhisthana  | 288         | 3               | D4          |
+| Manipura      | 320         | 3               | E4 (~329.6) |
+| Anahata       | 341         | 3               | F4 (~349.2) |
+| Vishuddha     | 384         | 3               | G4          |
+| Ajna          | 426         | 3               | A4 (~440)   |
+| Sahasrara     | 480         | 3               | B4 (~493.9) |
+
+> NOTE: Values are canonicalized for this repository's UX system. They are not prescriptive beyond project scope.
+
+## Light (Color) — target wavelength ± tolerance
+| Chakra        | Center (nm) | Tolerance (±nm) | Display Hint (sRGB) |
+|---------------|-------------|-----------------|---------------------|
+| Muladhara     | 625         | 10              | Red                 |
+| Svadhisthana  | 590         | 10              | Orange              |
+| Manipura      | 565         | 10              | Yellow              |
+| Anahata       | 530         | 10              | Green               |
+| Vishuddha     | 490         | 10              | Cyan/Blue           |
+| Ajna          | 455         | 10              | Indigo              |
+| Sahasrara     | 410         | 10              | Violet              |
+
+# "Dance of the Bumblebees" Protocol (Literal)
+Agents **MUST** implement a bumblebee cadence when requested:
+1. **Tempo:** 170–190 BPM (target 180 BPM)  
+2. **Pattern:** 3-beat micro-bursts, 2-beat glide, loop (3–2 phrasing)  
+3. **Amplitude Envelope:** fast attack (<10 ms), short decay (100–150 ms), sustain −6 dB, release 120–180 ms  
+4. **Spatialization:** subtle stereo flutter at 0.7–1.3 Hz LFO, depth ≤ 25%  
+5. **Chakra Modulation:** when a chakra is active, detune carrier by ±1.5% toward that chakra's audio center frequency and bias UI color to its wavelength center.
+
+## Agent Contract (Copilot Meta-Prompt)
+Agents **SHOULD** load this literal spec and respond accordingly:
+```
+Role: Weaver
+Intent: Apply literal chakra frequency and bumblebee cadence rules.
+Constraints:
+  - Honor audio/light tables with given tolerances.
+  - If both sound and light are active, synchronize phase to the 3–2 cadence.
+Validation:
+  - Log chosen Hz/nm + deltas; assert within tolerance.
+  - Record BPM and cadence pattern choice.
+```
+
+## Reference Implementation Stubs
+```yaml
+# config/frequency-map.yaml
+audio:
+  muladhara:    { hz: 256, tol: 3 }
+  svadhisthana: { hz: 288, tol: 3 }
+  manipura:     { hz: 320, tol: 3 }
+  anahata:      { hz: 341, tol: 3 }
+  vishuddha:    { hz: 384, tol: 3 }
+  ajna:         { hz: 426, tol: 3 }
+  sahasrara:    { hz: 480, tol: 3 }
+light:
+  muladhara:    { nm: 625, tol: 10 }
+  svadhisthana: { nm: 590, tol: 10 }
+  manipura:     { nm: 565, tol: 10 }
+  anahata:      { nm: 530, tol: 10 }
+  vishuddha:    { nm: 490, tol: 10 }
+  ajna:         { nm: 455, tol: 10 }
+  sahasrara:    { nm: 410, tol: 10 }
+```
+
+```ts
+// libs/cadence.ts
+export function bumblebeeCadence(bpm = 180) {
+  return { bpm, pattern: [3,2], envelope: { atkMs: 10, decMs: 120, susDb: -6, relMs: 150 },
+           stereoFlutterHz: 1.0, depth: 0.25 };
+}
+```
+
+```ts
+// libs/chakra.ts
+export function resolveChakraAudio(chakra: string, map: any) {
+  const { hz, tol } = map.audio[chakra]; return { hz, min: hz - tol, max: hz + tol };
+}
+export function resolveChakraLight(chakra: string, map: any) {
+  const { nm, tol } = map.light[chakra]; return { nm, min: nm - tol, max: nm + tol };
+}
+```
+
+```ts
+// validation/logging.ts
+export function within<T extends number>(val: T, min: T, max: T) { return val >= min && val <= max; }
+```
+
+---
+
 This repository uses the **Observer-Architect-Weaver Triad** ontology for AI collaboration and code development.
 
 ---
