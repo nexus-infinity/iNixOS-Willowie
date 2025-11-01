@@ -31,8 +31,24 @@ This repository contains a NixOS configuration for the BearsiMac system, featuri
   with lib;
   
   {
-    options = { ... };
-    config = mkIf ... { ... };
+    options.services.myService = {
+      enable = mkEnableOption "My Service";
+      port = mkOption {
+        type = types.port;
+        default = 8080;
+        description = "Port to listen on";
+      };
+    };
+    
+    config = mkIf config.services.myService.enable {
+      systemd.services.my-service = {
+        description = "My Service";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.myPackage}/bin/myservice";
+        };
+      };
+    };
   }
   ```
 
