@@ -1,0 +1,336 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/nexus-infinity/iNixOS-Willowie/ontology/triad-schema.json",
+  "title": "Observer-Architect-Weaver Triad Schema",
+  "description": "JSON Schema for defining AI agent roles within the Observer-Architect-Weaver Triad ontology",
+  "version": "1.0.0",
+  
+  "definitions": {
+    "perspective": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "The specific role within this perspective"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of capabilities in this perspective"
+        }
+      },
+      "required": ["role", "capabilities"]
+    },
+    
+    "perspectiveSet": {
+      "type": "object",
+      "properties": {
+        "geometric": {
+          "$ref": "#/definitions/perspective",
+          "description": "Spatial relationships, proportion, symmetry"
+        },
+        "semantic": {
+          "$ref": "#/definitions/perspective",
+          "description": "Meaning, coherence, symbolic relationships"
+        },
+        "temporal": {
+          "$ref": "#/definitions/perspective",
+          "description": "Memory, lineage, evolution, rhythm"
+        }
+      },
+      "required": ["geometric", "semantic", "temporal"]
+    },
+    
+    "triadRole": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "description": "Symbolic representation of the role"
+        },
+        "key_verb": {
+          "type": "string",
+          "description": "Primary action verb for this role"
+        },
+        "primary_function": {
+          "type": "string",
+          "description": "Core purpose of this role"
+        },
+        "perspectives": {
+          "$ref": "#/definitions/perspectiveSet"
+        },
+        "validation_method": {
+          "type": "string",
+          "description": "How this role validates its work"
+        }
+      },
+      "required": ["symbol", "key_verb", "primary_function", "perspectives", "validation_method"]
+    },
+    
+    "agentConfiguration": {
+      "type": "object",
+      "properties": {
+        "agent_role": {
+          "type": "string",
+          "enum": ["Observer", "Architect", "Weaver"],
+          "description": "The primary role this agent embodies"
+        },
+        "intent": {
+          "type": "string",
+          "description": "Clear statement of what this agent intends to accomplish"
+        },
+        "geometry_alignment": {
+          "type": "string",
+          "description": "How the agent aligns with geometric field principles"
+        },
+        "semantic_focus": {
+          "type": "string",
+          "description": "What meaning or coherence the agent prioritizes"
+        },
+        "temporal_awareness": {
+          "type": "string",
+          "description": "How the agent handles time, memory, and evolution"
+        },
+        "external_validation": {
+          "type": "string",
+          "description": "How external observers validate the agent's work"
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific tasks this agent is configured to perform"
+        }
+      },
+      "required": ["agent_role", "intent", "geometry_alignment", "semantic_focus", "temporal_awareness", "external_validation"]
+    },
+    
+    "flow": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the flow (e.g., 'Observer → Architect')"
+        },
+        "description": {
+          "type": "string",
+          "description": "What happens in this flow"
+        },
+        "goal": {
+          "type": "string",
+          "description": "Intended outcome of this flow"
+        }
+      },
+      "required": ["name", "description", "goal"]
+    }
+  },
+  
+  "type": "object",
+  "properties": {
+    "ontology": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "const": "Observer-Architect-Weaver Triad"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "description": {
+          "type": "string"
+        },
+        "guiding_principle": {
+          "type": "object",
+          "properties": {
+            "vision": {
+              "type": "string"
+            }
+          },
+          "required": ["vision"]
+        }
+      },
+      "required": ["name", "version", "description", "guiding_principle"]
+    },
+    
+    "roles": {
+      "type": "object",
+      "properties": {
+        "observer": {
+          "$ref": "#/definitions/triadRole"
+        },
+        "architect": {
+          "$ref": "#/definitions/triadRole"
+        },
+        "weaver": {
+          "$ref": "#/definitions/triadRole"
+        }
+      },
+      "required": ["observer", "architect", "weaver"]
+    },
+    
+    "flows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/flow"
+      },
+      "minItems": 4,
+      "description": "The four primary flows in the triad system"
+    },
+    
+    "agent_configuration": {
+      "$ref": "#/definitions/agentConfiguration",
+      "description": "Configuration for a specific agent instance"
+    },
+    
+    "field_state": {
+      "type": "object",
+      "properties": {
+        "integrity": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Field integrity measurement"
+        },
+        "resonance": {
+          "type": "string",
+          "enum": ["pure", "seeking", "harmonic", "dissonant"],
+          "description": "Current resonance state"
+        },
+        "alignment": {
+          "type": "string",
+          "enum": ["coherent", "seeking", "fragmented"],
+          "description": "System alignment status"
+        }
+      }
+    },
+    
+    "sacred_triad_mapping": {
+      "type": "object",
+      "properties": {
+        "observer_to_obiwan": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "string",
+              "const": "Observer → ◎_OBI-WAN"
+            },
+            "alignment": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "architect_to_tata": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "string",
+              "const": "Architect → ◎_TATA"
+            },
+            "alignment": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "weaver_to_atlas": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "string",
+              "const": "Weaver → ◎_Atlas"
+            },
+            "alignment": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "compatible_with": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  
+  "examples": [
+    {
+      "agent_configuration": {
+        "agent_role": "Observer",
+        "intent": "Perceive and measure the geometry, rhythm, and meaning of the field",
+        "geometry_alignment": "Tetrahedral apex - balance point of awareness",
+        "semantic_focus": "Truth detection through relational awareness",
+        "temporal_awareness": "Maintain lineage and track transformations",
+        "external_validation": "Resonance validation between system and environment",
+        "tasks": [
+          "Review existing codebase and identify patterns",
+          "Detect inconsistencies or flow distortions",
+          "Map relationships between components",
+          "Validate field integrity and resonance"
+        ]
+      }
+    },
+    {
+      "agent_configuration": {
+        "agent_role": "Architect",
+        "intent": "Translate geometric and semantic observations into executable form",
+        "geometry_alignment": "Tetrahedral symmetry with external feedback loop",
+        "semantic_focus": "Continuity of meaning across code and interaction layers",
+        "temporal_awareness": "Preserve lineage; adapt rhythmically to evolution",
+        "external_validation": "Field resonance test via Observer feedback",
+        "tasks": [
+          "Design structural frameworks and APIs",
+          "Create data schemas maintaining semantic integrity",
+          "Define proportions and constraints",
+          "Plan evolutionary pathways for the system"
+        ]
+      }
+    },
+    {
+      "agent_configuration": {
+        "agent_role": "Weaver",
+        "intent": "Realize the design within the living system through embodied flow",
+        "geometry_alignment": "Circuit integration across all nodes",
+        "semantic_focus": "Meaning embedded in user experience and interaction",
+        "temporal_awareness": "Sustain rhythm of use; adapt to emergent patterns",
+        "external_validation": "Usability testing and experiential feedback",
+        "tasks": [
+          "Implement code changes preserving flow",
+          "Create user interfaces and automations",
+          "Connect components into living circuits",
+          "Balance structure with adaptability"
+        ]
+      }
+    }
+  ]
+}
