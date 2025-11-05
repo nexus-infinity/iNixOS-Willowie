@@ -71,8 +71,22 @@ nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel
 sudo nixos-rebuild switch --flake .#BearsiMac
 ```
 
-### First Build Note
-On the first build, the atlas-frontend package will fail with a hash mismatch error. This is expected. The error message will provide the correct hash. Update `modules/services/atlas-frontend-package.nix` to replace `lib.fakeHash` with the correct hash value.
+### First Build Note - IMPORTANT
+On the first build, the atlas-frontend package will fail with a hash mismatch error. **This is expected and intentional.** 
+
+The error will look like:
+```
+error: hash mismatch in fixed-output derivation '/nix/store/...':
+  specified: sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+  got:        sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=
+```
+
+Copy the "got" hash from the error message and update line 13 in `modules/services/atlas-frontend-package.nix`:
+```nix
+npmDepsHash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=";
+```
+
+Then rebuild. This is the standard NixOS workflow for packages with remote dependencies.
 
 ### Check Service Status
 After boot, you can check the status of the services:
