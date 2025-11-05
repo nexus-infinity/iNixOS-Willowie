@@ -81,7 +81,7 @@ error: hash mismatch in fixed-output derivation '/nix/store/...':
   got:        sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=
 ```
 
-Copy the "got" hash from the error message and update line 13 in `modules/services/atlas-frontend-package.nix`:
+Copy the "got" hash from the error message and update line 16 in `modules/services/atlas-frontend-package.nix`:
 ```nix
 npmDepsHash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=";
 ```
