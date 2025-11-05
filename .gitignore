@@ -45,6 +45,9 @@ build/
 dist/
 out/
 
+# Node modules
+node_modules/
+
 # Nix garbage collection roots and profiles
 /nix/var/nix/gcroots/
 /nix/var/nix/profiles/

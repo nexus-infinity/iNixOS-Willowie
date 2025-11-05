@@ -61,6 +61,18 @@ with lib;
   config = mkIf config.services.metatronCube.enable {
     # Sacred geometry bridge activation
     # This module provides the foundational geometric framework
+
+    systemd.services.metatron-cube = {
+      description = "Metatron Cube Q-dimensional Translator (Placeholder)";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.coreutils}/bin/echo 'Metatron Cube sacred geometry translator activated'";
+        RemainAfterExit = true;
+      };
+    };
     
     warnings = [ ''
       Metatron Cube sacred geometry translator is configured but not yet fully implemented.

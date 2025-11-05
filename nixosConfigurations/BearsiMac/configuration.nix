@@ -21,9 +21,10 @@
   # Atlas Frontend Configuration for Ghost Alignments (remains the same)
   services.atlasFrontend = {
     enable = true;
-    pulseEngineSource = "mqtt://localhost:1883/dojo/pulse";
-    pulseSyncSource = "mqtt://localhost:1883/dojo/nodes/pulse/#";
-    listenPort = 3000;
+    mqttBroker = "mqtt://localhost:1883";
+    pulseSyncTopic = "dojo/nodes/pulse/#";
+    wsPort = 3000;
+    httpPort = 3001;
   };
 
   # TATA 8i Pulse Engine for Chakra Synchronization (remains the same)

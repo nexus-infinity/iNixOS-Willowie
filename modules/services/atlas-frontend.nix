@@ -4,6 +4,7 @@ with lib;
 
 let
   frontendUser = "atlas";
+  atlas-bridge = pkgs.callPackage ./atlas-frontend-package.nix {};
 in
 {
   # Atlas Frontend Service Module
@@ -12,22 +13,28 @@ in
   options.services.atlasFrontend = {
     enable = mkEnableOption "Atlas Frontend ghost alignment interface";
 
-    listenPort = mkOption {
+    wsPort = mkOption {
       type = types.port;
       default = 3000;
-      description = "Port to listen on for the Atlas frontend";
+      description = "WebSocket port for the Atlas frontend";
     };
 
-    pulseEngineSource = mkOption {
-      type = types.str;
-      default = "mqtt://localhost:1883/dojo/pulse";
-      description = "MQTT source for pulse engine data";
+    httpPort = mkOption {
+      type = types.port;
+      default = 3001;
+      description = "HTTP API port for the Atlas frontend";
     };
 
-    pulseSyncSource = mkOption {
+    mqttBroker = mkOption {
       type = types.str;
-      default = "mqtt://localhost:1883/dojo/nodes/pulse/#";
-      description = "MQTT source for pulse synchronization";
+      default = "mqtt://localhost:1883";
+      description = "MQTT broker URL";
+    };
+
+    pulseSyncTopic = mkOption {
+      type = types.str;
+      default = "dojo/nodes/pulse/#";
+      description = "MQTT topic for pulse synchronization";
     };
   };
 
@@ -46,21 +53,21 @@ in
 
       serviceConfig = {
         User = frontendUser;
-        WorkingDirectory = "/var/lib/atlas-frontend";
-        ExecStart = "${pkgs.nodejs_18}/bin/node server.js";
+        ExecStart = "${atlas-bridge}/bin/atlas-bridge";
         Restart = "always";
         Environment = [
-          "PORT=${toString config.services.atlasFrontend.listenPort}"
-          "PULSE_ENGINE_SOURCE=${config.services.atlasFrontend.pulseEngineSource}"
-          "PULSE_SYNC_SOURCE=${config.services.atlasFrontend.pulseSyncSource}"
+          "ATLAS_MQTT_BROKER=${config.services.atlasFrontend.mqttBroker}"
+          "ATLAS_PULSE_SYNC=${config.services.atlasFrontend.pulseSyncTopic}"
+          "ATLAS_WS_PORT=${toString config.services.atlasFrontend.wsPort}"
+          "ATLAS_HTTP_PORT=${toString config.services.atlasFrontend.httpPort}"
         ];
       };
     };
 
     warnings = [ ''
-      Atlas Frontend is configured to listen on port ${toString config.services.atlasFrontend.listenPort}.
-      Service implementation is pending. This provides the ghost alignment interface.
+      Atlas Frontend is running atlas-bridge on WebSocket port ${toString config.services.atlasFrontend.wsPort} and HTTP port ${toString config.services.atlasFrontend.httpPort}.
+      This provides the ghost alignment interface bridging MQTT to WebSocket.
     '' ];
-    # networking.firewall.allowedTCPPorts = [ config.services.atlasFrontend.listenPort ];
+    # networking.firewall.allowedTCPPorts = [ config.services.atlasFrontend.wsPort config.services.atlasFrontend.httpPort ];
   };
 }
