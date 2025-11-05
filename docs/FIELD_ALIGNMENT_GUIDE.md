@@ -87,6 +87,12 @@ These would create redundancy or conflicts:
 - ❌ `/dot-hive/flake.nix` (use default.nix instead)
 - ❌ Duplicate Nix settings in machine config (defined in main flake)
 
+> **Note on Merges**: These files may temporarily reappear during merges from branches that predate the alignment. If you encounter them after a merge:
+> 1. Run `./scripts/evaluate-environment.sh` to detect the issue
+> 2. Remove the redundant file(s): `git rm <file>`
+> 3. Re-validate with the evaluation script
+> 4. Commit the cleanup
+
 ### Files That Are Optional
 For standalone/testing purposes only:
 - ✓ `/chakras/*/flake.nix` (standalone capability, not imported)
