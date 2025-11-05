@@ -6,16 +6,17 @@ pkgs.buildNpmPackage rec {
 
   src = ../../dot-hive/atlas-frontend;
 
-  # NOTE: lib.fakeHash will cause build to fail on first attempt.
-  # This is intentional - NixOS will provide the correct hash in the error message.
-  # Replace this with the correct hash after first build attempt.
-  # Example: npmDepsHash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=";
+  # ⚠️ IMPORTANT: lib.fakeHash will cause build to fail on first attempt.
+  # This is the standard NixOS workflow for packages with remote dependencies.
+  # Steps to fix:
+  # 1. Run: nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel
+  # 2. Copy the "got:" hash from the error message
+  # 3. Replace lib.fakeHash below with the hash (e.g., "sha256-ABC123...=")
+  # 4. Rebuild
   npmDepsHash = lib.fakeHash;
 
-  # Make the script executable
-  postInstall = ''
-    chmod +x $out/bin/atlas-bridge
-  '';
+  # buildNpmPackage automatically handles bin entries from package.json
+  # atlas-bridge.js already has #!/usr/bin/env node shebang
 
   meta = with lib; {
     description = "MQTT to WebSocket bridge for ATLAS Frontend";
