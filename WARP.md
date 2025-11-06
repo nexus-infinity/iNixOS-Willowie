@@ -8,7 +8,7 @@ This is a NixOS configuration repository for "BearsiMac" (an iMac in Willowie ki
 
 ### Core Structure
 - **Main flake** (`flake.nix`): Defines the BearsiMac NixOS configuration using nixos-23.11
-- **Aggregator flake** (`dot-hive/flake.nix`): Collects chakra sub-flakes into a unified module set
+- **Aggregator module** (`dot-hive/default.nix`): Collects chakra modules into a unified configuration
 - **Chakra modules** (`chakras/*/`): Nine modular NixOS configurations, each representing a living sphere ecosystem:
   - `muladhara` (root) - Foundation and security, Smriti memory core (prime: 2)
   - `svadhisthana` (sacral) - Creativity and flow, Raksha security (prime: 3)  
@@ -84,8 +84,8 @@ sudo nixos-rebuild switch --flake .#BearsiMac
 
 ## Development Workflow
 
-1. **Modify chakra configurations** in `chakras/*/flake.nix` for specific functionality
-2. **Update aggregator** in `dot-hive/flake.nix` if adding new chakras
+1. **Modify chakra configurations** in `chakras/*/default.nix` for specific functionality
+2. **Update aggregator** in `dot-hive/default.nix` if adding new chakras
 3. **Test locally** with `nixos-rebuild build --flake .#BearsiMac`
 4. **Use development shell** for non-destructive validation
 5. **Apply to target system** using rebuild switch or deployment scripts

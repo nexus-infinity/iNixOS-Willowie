@@ -154,10 +154,10 @@ check_flake_structure() {
     fi
     
     # Check dot-hive aggregator
-    if [[ -f "dot-hive/flake.nix" ]]; then
-        check_pass "dot-hive aggregator flake exists"
+    if [[ -f "dot-hive/default.nix" ]]; then
+        check_pass "dot-hive aggregator module exists"
     else
-        check_fail "dot-hive/flake.nix not found"
+        check_fail "dot-hive/default.nix not found"
     fi
 }
 

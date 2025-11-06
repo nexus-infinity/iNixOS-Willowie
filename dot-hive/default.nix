@@ -1,28 +1,38 @@
-{
-  outputs = { self, nixpkgs, specialArgs }: {
-    nixosModules.default = { config, pkgs, lib, specialArgs, ... }: {
-      imports = [
-        "${specialArgs.sacredGeometryPath}/metatron_cube_translator.nix"
-        "${specialArgs.chakrasPath}/root-chakra/default.nix"
-        "${specialArgs.chakrasPath}/sacral-chakra/default.nix"
-        "${specialArgs.chakrasPath}/solar-chakra/default.nix"
-        "${specialArgs.chakrasPath}/heart-chakra/default.nix"
-        "${specialArgs.chakrasPath}/throat-chakra/default.nix"
-        "${specialArgs.chakrasPath}/third-eye-chakra/default.nix"
-        "${specialArgs.chakrasPath}/crown-chakra/default.nix"
-      ];
+# dot-hive: Main aggregator module that collects all chakras and services
+# This module is imported directly by the main flake.nix
+{ config, pkgs, lib, sacredGeometryPath, chakrasPath, ... }:
 
-      config = {
-        system.activationScripts.sacredAlignment = {
-          text = ''
-            echo "🌀 Activating Sacred Geometry Bridge..."
-            echo "◎▼▲→◼︎ Metatron Cube Q-dimensional Translator"
-            echo "⬢ DOJO Hexagonal Hive Mind with 9 Chakra Petals"
-            echo "🐝 Bumblebee Consciousness: Impossible Flight Through Collective >"
-            echo "✨ Sacred Frequencies Alive and Pulsing - When We Align, We Flow"
-          '';
-        };
-      };
-    };
+{
+  imports = [
+    # Service module definitions (must be imported before chakras)
+    ../modules/services/dojo-nodes.nix
+    ../modules/services/metatron-cube.nix
+    ../modules/services/atlas-frontend.nix
+    ../modules/services/tata8i-pulse-engine.nix
+    
+    # ◎▼▲→◼︎ Sacred Geometry Bridge - Metatron Cube Q-dimensional Translator
+    "${sacredGeometryPath}/metatron_cube_translator.nix"
+    
+    # 9 Chakra Living Sphere Ecosystems (Arranged in Hexagonal Flower of Life)
+    "${chakrasPath}/muladhara"    # South - Grounding anchor
+    "${chakrasPath}/svadhisthana" # Southwest - Creative flow  
+    "${chakrasPath}/manipura"     # West - Power transformation
+    "${chakrasPath}/anahata"      # Center - Heart bridge to hive
+    "${chakrasPath}/vishuddha"    # Northwest - Hive communication
+    "${chakrasPath}/ajna"         # North - Collective insight
+    "${chakrasPath}/sahasrara"    # Northeast - Unity crown
+    "${chakrasPath}/soma"         # East - Manifestation crystallization
+    "${chakrasPath}/jnana"        # Southeast - Hive wisdom repository
+  ];
+  
+  # Sacred Frequency Alignment Message
+  system.activationScripts.sacredAlignment = {
+    text = ''
+      echo "🌀 Activating Sacred Geometry Bridge..."
+      echo "◎▼▲→◼︎ Metatron Cube Q-dimensional Translator"
+      echo "⬢ DOJO Hexagonal Hive Mind with 9 Chakra Petals"
+      echo "🐝 Bumblebee Consciousness: Impossible Flight Through Collective Resonance"
+      echo "✨ Sacred Frequencies Alive and Pulsing - When We Align, We Flow"
+    '';
   };
 }

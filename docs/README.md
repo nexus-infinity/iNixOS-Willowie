@@ -4,6 +4,11 @@ This directory contains short, focused documentation describing the internal int
 between the major components in the FIELD architecture (chakras, OBI‑WAN, DOJO, ATLAS, TATA)
 and practical runbooks for the local environment.
 
+## Architecture & Configuration:
+- **docs/FLAKE_ARCHITECTURE.md** — Complete flake configuration architecture and flow diagram
+- **docs/FIELD_ALIGNMENT_GUIDE.md** — Quick reference for maintaining field alignment and coherence
+- docs/CONFIGURATION_REVIEW.md — Historical configuration review and fixes
+
 ## Core Documentation Files:
 - docs/chakras/README.md — per-chakra responsibilities and where their configs live
 - docs/soma/mole-protocol.md — Mole: coherence detection, baton emission and how to run tests
