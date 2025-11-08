@@ -34,13 +34,56 @@
   #
   # Example structure (CUSTOMIZE FOR YOUR SYSTEM):
   
+  # ========================================================================
+  # OPTION A: Fusion Drive Setup (SSD + HDD) - RECOMMENDED for iMac 2019
+  # ========================================================================
+  # This configuration uses:
+  # - SSD for root (fast system)
+  # - HDD for /nix/store and /home (bulk storage)
+  
+  # Root filesystem (on SSD)
+  # fileSystems."/" = {
+  #   device = "/dev/disk/by-uuid/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" ];
+  # };
+
+  # Boot partition (on SSD)
+  # fileSystems."/boot" = {
+  #   device = "/dev/disk/by-uuid/XXXX-XXXX";
+  #   fsType = "vfat";
+  #   options = [ "fmask=0022" "dmask=0022" ];
+  # };
+
+  # Nix store (on HDD - packages and generations)
+  # fileSystems."/nix/store" = {
+  #   device = "/dev/disk/by-uuid/YYYYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY";
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" ];
+  # };
+
+  # Home directory (on HDD - user data)
+  # fileSystems."/home" = {
+  #   device = "/dev/disk/by-uuid/ZZZZZZZZ-ZZZZ-ZZZZ-ZZZZ-ZZZZZZZZZZZZ";
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" ];
+  # };
+
+  # Swap (on HDD)
+  # swapDevices = [{
+  #   device = "/dev/disk/by-uuid/WWWWWWWW-WWWW-WWWW-WWWW-WWWWWWWWWWWW";
+  # }];
+
+  # ========================================================================
+  # OPTION B: Single Drive Setup (HDD only)
+  # ========================================================================
+  # Use this if your SSD is too small or unavailable
+  
   # Root filesystem
   # fileSystems."/" = {
   #   device = "/dev/disk/by-uuid/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-  #   fsType = "ext4";
-  #   # OR for btrfs with subvolumes:
-  #   # fsType = "btrfs";
-  #   # options = [ "subvol=@" "compress=zstd" "noatime" ];
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" ];
   # };
 
   # Boot partition (EFI System Partition)
@@ -50,15 +93,15 @@
   #   options = [ "fmask=0022" "dmask=0022" ];
   # };
 
-  # Swap configuration (if using swap partition)
+  # Swap configuration
   # swapDevices = [{
-  #   device = "/dev/disk/by-uuid/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+  #   device = "/dev/disk/by-uuid/YYYYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY";
   # }];
 
   # Or for swap file:
   # swapDevices = [{
   #   device = "/swapfile";
-  #   size = 8192; # Size in MB
+  #   size = 16384; # Size in MB (16GB recommended)
   # }];
 
   # Networking hardware
@@ -72,31 +115,40 @@
   # hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  # Graphics
-  # Uncomment and adjust based on your GPU
+  # ========================================================================
+  # iMac 2019 Specific Configuration
+  # ========================================================================
+  
+  # Enable firmware for WiFi and Bluetooth
+  # hardware.enableRedistributableFirmware = true;
+  
+  # For Broadcom WiFi (common in iMac 2019)
+  # boot.kernelModules = [ "kvm-intel" "brcmfmac" ];
+  
+  # Boot loader configuration
+  # boot.loader = {
+  #   systemd-boot.enable = true;
+  #   efi.canTouchEfiVariables = true;
+  #   timeout = 5;
+  # };
+
+  # Graphics - iMac 2019 typically has AMD Radeon Pro
   # hardware.opengl = {
   #   enable = true;
   #   driSupport = true;
-  #   driSupport32Bit = true;
+  #   driSupport32Bit = true; # For 32-bit applications
   # };
-
-  # For NVIDIA GPUs (uncomment if needed):
-  # services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.nvidia = {
-  #   modesetting.enable = true;
-  #   powerManagement.enable = false;
-  #   powerManagement.finegrained = false;
-  #   open = false;
-  #   nvidiaSettings = true;
-  #   package = config.boot.kernelPackages.nvidiaPackages.stable;
-  # };
-
-  # For AMD GPUs (uncomment if needed):
+  
+  # For AMD Radeon graphics (iMac 2019)
   # services.xserver.videoDrivers = [ "amdgpu" ];
-
-  # Power management
-  # powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-
-  # High DPI settings (for 4K/5K displays)
+  
+  # High DPI support for 4K/5K Retina displays
   # hardware.video.hidpi.enable = lib.mkDefault true;
+  
+  # Enable TRIM for SSD performance
+  # services.fstrim.enable = true;
+
+  # Graphics
+  # Uncomment and adjust based on your GPU
+  # (See iMac 2019 specific section below for Radeon configuration)
 }

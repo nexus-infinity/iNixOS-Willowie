@@ -1,16 +1,34 @@
 # iMac 2019 Implementation Guide for iNixOS-Willowie
 
-## Current Situation Assessment
+## ⚠️ IMPORTANT: Updated Installation Guide Available
 
-You are logged in as **root** on your iMac 2019 running NixOS at the terminal prompt. This guide will walk you through implementing the iNixOS-Willowie configuration on your system.
+For **iMac 2019 with Fusion Drive** installations, please use the comprehensive guide:
 
-## Overview
+**📖 [docs/IMAC-2019-FUSION-DRIVE-SETUP.md](docs/IMAC-2019-FUSION-DRIVE-SETUP.md)**
 
-The iNixOS-Willowie repository provides a sophisticated NixOS configuration based on sacred geometry principles with 9 modular "chakra" systems. This is a **flake-based NixOS configuration** designed specifically for your iMac 2019 (hostname: BearsiMac).
+This new guide includes:
+- ✅ Detailed Fusion Drive architecture explanation (SSD + HDD)
+- ✅ Recommended partitioning strategies optimized for dual-drive setup
+- ✅ Step-by-step USB installation process
+- ✅ Boot loader configuration for native booting (no USB needed)
+- ✅ Mount point verification and validation
+- ✅ Troubleshooting for common issues
 
-## Prerequisites Status Check
+## Quick Diagnostic Tools
 
-Before proceeding, verify your current environment:
+Before starting installation, use these tools to understand your hardware:
+
+```bash
+# Identify your drives (SSD vs HDD)
+sudo ./scripts/detect-drives.sh
+
+# Verify mount points are correct (during installation)
+sudo ./scripts/verify-mounts.sh
+```
+
+## For Already Running Systems
+
+If you already have NixOS installed and want to switch to this configuration:
 
 ### 1. Check Nix Version
 ```bash
