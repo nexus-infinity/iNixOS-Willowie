@@ -1,0 +1,76 @@
+{
+  "$schema": "./schema.json",
+  "STUBS_TO_REVISIT": {
+    "note": "This index contains STUB/PLACEHOLDER values. Update these fields before production use:",
+    "fields_to_update": [
+      "artifact.sha256 - Replace with actual SHA-256 checksum of trained model file",
+      "artifact.sizeBytes - Replace with actual file size in bytes",
+      "artifact.downloadUrl - Replace with real Hugging Face repository URL",
+      "dataset.commit - Replace with actual dataset version/commit hash",
+      "dataset.url - Replace with real dataset repository URL",
+      "training.repo - Replace with actual training code repository URL",
+      "training.commit - Replace with actual training code commit hash",
+      "provenance.runId - Replace with actual training run identifier",
+      "provenance.timestamp - Replace with actual training completion timestamp",
+      "provenance.metrics - Replace with real training metrics from training logs"
+    ],
+    "how_to_update": "Update this file manually or via CI pipeline after training a model. See README.md for details."
+  },
+  "models": [
+    {
+      "id": "muladhara-foundation-v1",
+      "version": "1.0.0",
+      "chakra": "muladhara",
+      "frequencyHz": 432.0,
+      "geometry": {
+        "pattern": "hexagon",
+        "dimensions": 6,
+        "coordinates": [0, 0, 0]
+      },
+      "temporalScope": "eternal",
+      "semanticTags": [
+        "foundation",
+        "root-chakra",
+        "grounding",
+        "stability",
+        "base-frequency"
+      ],
+      "dataset": {
+        "id": "TODO-STUB-DATASET-NAME",
+        "commit": "0000000000000000000000000000000000000000",
+        "url": "https://huggingface.co/datasets/TODO-STUB-ORG/TODO-STUB-DATASET"
+      },
+      "training": {
+        "repo": "https://github.com/TODO-STUB-ORG/TODO-STUB-TRAINING-REPO",
+        "commit": "0000000000000000000000000000000000000000",
+        "command": "TODO-STUB: python train.py --chakra muladhara --frequency 432",
+        "duration": "TODO-STUB: 4h30m",
+        "hardware": "TODO-STUB: A100-80GB"
+      },
+      "artifact": {
+        "filename": "muladhara-foundation-v1.safetensors",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "sizeBytes": 0,
+        "format": "safetensors",
+        "downloadUrl": "https://huggingface.co/TODO-STUB-ORG/TODO-STUB-MODEL-REPO/resolve/main/muladhara-foundation-v1.safetensors"
+      },
+      "license": "Apache-2.0",
+      "provenance": {
+        "runId": "TODO-STUB-RUN-ID-12345",
+        "timestamp": "2024-01-01T00:00:00Z",
+        "creator": "TODO-STUB-CREATOR",
+        "metrics": {
+          "loss": 0.0,
+          "accuracy": 0.0,
+          "perplexity": 0.0
+        },
+        "reproducibility": {
+          "seed": 42,
+          "environment": "TODO-STUB-ENVIRONMENT-HASH"
+        }
+      },
+      "description": "STUB: Foundation model for the Muladhara (root) chakra, trained at 432 Hz resonance for grounding and stability alignment.",
+      "notes": "REVISIT: This is a placeholder entry. Replace all TODO-STUB values with actual model metadata after training."
+    }
+  ]
+}
