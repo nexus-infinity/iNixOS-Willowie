@@ -2,6 +2,8 @@
 # Machine-specific settings for the sacred geometry system
 { config, lib, pkgs, ... }:
 {
+  imports = [ ../../modules/atlas.nix ];
+
   # Basic system configuration
   networking = {
     hostName = "BearsiMac";
