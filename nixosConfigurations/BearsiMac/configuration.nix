@@ -6,13 +6,28 @@
   networking = {
     hostName = "BearsiMac";
     networkmanager.enable = true;
-    wireless = {
+    # Note: Do not enable wireless.enable when using NetworkManager
+    # They conflict with each other
+  };
+
+  # Boot loader configuration for EFI
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    timeout = 5;
+  };
+
+  # iMac 2019 Hardware Support
+  hardware = {
+    enableRedistributableFirmware = true;
+    opengl = {
       enable = true;
-      networks."Willowie" = {
-        priority = 100;
-      };
+      driSupport = true;
     };
   };
+
+  # Enable TRIM for SSD
+  services.fstrim.enable = true;
 
   # Atlas Frontend Configuration for Ghost Alignments
   services.atlasFrontend = {
@@ -44,6 +59,9 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
+    # Set initial password - change this after first login!
+    # To generate a hashed password: mkpasswd -m sha-512
+    initialPassword = "nixos";
   };
 
   # System packages
@@ -53,11 +71,24 @@
     wget
     curl
     zsh
+    htop
+    firefox
+    gnome.gnome-tweaks
   ];
 
   # Enable important services
   services = {
     openssh.enable = true;
+    
+    # Enable X11 and GNOME Desktop
+    xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      
+      # For iMac's AMD Radeon graphics
+      videoDrivers = [ "amdgpu" ];
+    };
   };
 
   # System state version

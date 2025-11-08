@@ -10,6 +10,29 @@
 
 ## 🚀 Quick Start
 
+### For iMac 2019 with Fusion Drive
+
+**⚠️ If you have an iMac 2019 with Fusion Drive and need to install from USB:**
+
+See the comprehensive guide: **[docs/IMAC-2019-FUSION-DRIVE-SETUP.md](docs/IMAC-2019-FUSION-DRIVE-SETUP.md)**
+
+This guide covers:
+- Understanding your Fusion Drive architecture (SSD + HDD)
+- Recommended partitioning strategies
+- Step-by-step installation from USB
+- Boot configuration for native booting
+- Troubleshooting common issues
+
+**Quick diagnostic tools:**
+- `sudo ./scripts/detect-drives.sh` - Identify your drives
+- `sudo ./scripts/verify-mounts.sh` - Verify mount points before installation
+
+---
+
+### For Existing NixOS Installations
+
+If you already have NixOS installed and just want to apply this configuration:
+
 ### 1. Prerequisites
 On your NixOS system, enable experimental features:
 
