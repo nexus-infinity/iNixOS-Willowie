@@ -1,20 +1,25 @@
 {
-  "name": "atlas-bridge",
-  "version": "1.0.0",
-  "description": "MQTT to WebSocket bridge for ATLAS Frontend",
-  "main": "atlas-bridge.js",
-  "bin": {
-    "atlas-bridge": "./atlas-bridge.js"
+  "name": "atlas-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "ws": "^8.14.2",
-    "mqtt": "^5.1.2"
+    "next": "16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3",
+    "lucide-react": "^0.468.0"
   },
-  "scripts": {
-    "start": "node atlas-bridge.js"
-  },
-  "keywords": ["mqtt", "websocket", "bridge"],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "tailwindcss": "^4.0.0"
+  }
 }
