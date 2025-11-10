@@ -1,5 +1,5 @@
 {
-  description = "BearsiMac - Willowie Kitchen NixOS Configuration";
+  description = "nixos - Willowie Kitchen NixOS Configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -10,7 +10,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations = {
-      BearsiMac = nixpkgs.lib.nixosSystem {
+      nixos = nixpkgs.lib.nixosSystem {
         inherit system;
 
         specialArgs = {
@@ -27,7 +27,7 @@
           ./modules/services/atlas-frontend.nix 
 
           # Machine-specific config
-          ./nixosConfigurations/BearsiMac/configuration.nix
+          ./nixosConfigurations/nixos/configuration.nix
 
           # Extra Nix settings module (inline)
           ({ pkgs, ... }: {
@@ -45,8 +45,8 @@
       shellHook = ''
         echo "Dev shell active. Useful commands:
           - nix flake show
-          - nixos-rebuild build --flake .#BearsiMac
-          - nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel
+          - nixos-rebuild build --flake .#nixos
+          - nix build .#nixosConfigurations.nixos.config.system.build.toplevel
         "
       '';
     };

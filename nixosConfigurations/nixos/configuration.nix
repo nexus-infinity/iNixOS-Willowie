@@ -1,4 +1,4 @@
-# BearsiMac - Willowie Kitchen Configuration
+# nixos - Willowie Kitchen Configuration
 # Machine-specific settings for the sacred geometry system
 { config, lib, pkgs, ... }:
 {
@@ -6,7 +6,7 @@
 
   # Basic system configuration
   networking = {
-    hostName = "BearsiMac";
+    hostName = "nixos";
     networkmanager.enable = true;
     # Note: Do not enable wireless.enable when using NetworkManager
     # They conflict with each other
