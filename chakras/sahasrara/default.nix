@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  services.dojoNodes.crown = {
+  services.dojoNodes.sahasrara = {
     enable = true;
     prime = 17;
     chakra = "sahasrara";
