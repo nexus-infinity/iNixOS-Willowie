@@ -1,0 +1,20 @@
+{
+  "name": "atlas-bridge",
+  "version": "1.0.0",
+  "description": "MQTT to WebSocket bridge for ATLAS Frontend",
+  "main": "atlas-bridge.js",
+  "bin": {
+    "atlas-bridge": "./atlas-bridge.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "mqtt": "^5.1.2"
+  },
+  "scripts": {
+    "start": "node atlas-bridge.js"
+  },
+  "keywords": ["mqtt", "websocket", "bridge"],
+  "author": "",
+  "license": "ISC"
+}
