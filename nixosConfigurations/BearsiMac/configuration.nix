@@ -5,14 +5,14 @@
   # Basic system configuration
   networking = {
     hostName = "BearsiMac";
-    networkmanager.enable = true;
+    networkmanager.enable = false;
     # Note: Do not enable wireless.enable when using NetworkManager
     # They conflict with each other
   };
 
   # Boot loader configuration for EFI
   boot.loader = {
-    systemd-boot.enable = true;
+    systemd-boot.enable = false;
     efi.canTouchEfiVariables = true;
     timeout = 5;
   };
@@ -21,17 +21,17 @@
   hardware = {
     enableRedistributableFirmware = true;
     opengl = {
-      enable = true;
+      enable = false;
       driSupport = true;
     };
   };
 
   # Enable TRIM for SSD
-  services.fstrim.enable = true;
+  services.fstrim.enable = false;
 
   # Atlas Frontend Configuration for Ghost Alignments
   services.atlasFrontend = {
-    enable = true;
+    enable = false;
     mqttBroker = "mqtt://localhost:1883";
     pulseSyncTopic = "dojo/nodes/pulse/#";
     wsPort = 3000;
@@ -40,7 +40,7 @@
 
   # TATA 8i Pulse Engine for Chakra Synchronization
   services.tata8i-pulse-engine = {
-    enable = true;
+    enable = false;
     # Pulse engine specific settings will be auto-configured
   };
 
@@ -65,7 +65,7 @@
   };
 
   # Enable zsh shell
-  programs.zsh.enable = true;
+  programs.zsh.enable = false;
 
   # System packages
   environment.systemPackages = with pkgs; [
@@ -81,13 +81,13 @@
 
   # Enable important services
   services = {
-    openssh.enable = true;
+    openssh.enable = false;
     
     # Enable X11 and GNOME Desktop
     xserver = {
-      enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      enable = false;
+      displayManager.gdm.enable = false;
+      desktopManager.gnome.enable = false;
       
       # For iMac's AMD Radeon graphics
       videoDrivers = [ "amdgpu" ];
