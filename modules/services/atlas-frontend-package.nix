@@ -13,7 +13,14 @@ pkgs.buildNpmPackage rec {
   # 2. Copy the "got:" hash from the error message
   # 3. Replace lib.fakeHash below with the hash (e.g., "sha256-ABC123...=")
   # 4. Rebuild
-npmDepsHash = "sha256-4XMQzB5e0tTM6t6MNoTw32Y2lg2lTwQtBWJfWoi5z6A=";
+  npmDepsHash = "sha256-4XMQzB5e0tTM6t6MNoTw32Y2lg2lTwQtBWJfWoi5z6A=";
+
+  # Allow npm to write to cache during build
+  makeCacheWritable = true;
+  
+  # Use legacy peer deps to avoid strict dependency resolution
+  npmFlags = [ "--legacy-peer-deps" ];
+
   # buildNpmPackage automatically handles bin entries from package.json
   # atlas-bridge.js already has #!/usr/bin/env node shebang
 
