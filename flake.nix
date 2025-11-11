@@ -20,7 +20,7 @@
         };
 
         modules = [
-          ./hardware-configuration.nix
+          ./nixosConfigurations/BearsiMac/hardware-configuration.nix
           # DOJO nodes module - defines services.dojoNodes options
           ./modules/services/dojo-nodes.nix
 
