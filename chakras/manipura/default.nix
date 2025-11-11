@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  services.dojoNodes.solar = {
+  services.dojoNodes.manipura = {
     enable = true;
     prime = 5;
     chakra = "manipura";

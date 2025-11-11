@@ -7,7 +7,7 @@
 
   outputs = { self, nixpkgs }: {
     nixosModules.default = { config, lib, pkgs, ... }: {
-      services.dojoNodes.sacral = {
+      services.dojoNodes.svadhisthana = {
         enable = true;
         prime = 3;
         chakra = "svadhisthana";

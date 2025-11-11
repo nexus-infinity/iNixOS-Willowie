@@ -7,7 +7,7 @@
 
   outputs = { self, nixpkgs }: {
     nixosModules.default = { config, lib, pkgs, ... }: {
-      services.dojoNodes.throat = {
+      services.dojoNodes.vishuddha = {
         enable = true;
         prime = 11;
         chakra = "vishuddha";
