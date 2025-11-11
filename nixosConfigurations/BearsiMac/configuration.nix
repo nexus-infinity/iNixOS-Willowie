@@ -5,14 +5,14 @@
   # Basic system configuration
   networking = {
     hostName = "BearsiMac";
-    networkmanager.enable = false;
+    networkmanager.enable = true;
     # Note: Do not enable wireless.enable when using NetworkManager
     # They conflict with each other
   };
 
   # Boot loader configuration for EFI
   boot.loader = {
-    systemd-boot.enable = false;
+    systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
     timeout = 5;
   };
@@ -21,7 +21,7 @@
   hardware = {
     enableRedistributableFirmware = true;
     opengl = {
-      enable = false;
+      enable = true;
       driSupport = true;
     };
   };
@@ -65,7 +65,7 @@
   };
 
   # Enable zsh shell
-  programs.zsh.enable = false;
+  programs.zsh.enable = true;
 
   # System packages
   environment.systemPackages = with pkgs; [
@@ -81,13 +81,13 @@
 
   # Enable important services
   services = {
-    openssh.enable = false;
+    openssh.enable = true;
     
     # Enable X11 and GNOME Desktop
     xserver = {
-      enable = false;
-      displayManager.gdm.enable = false;
-      desktopManager.gnome.enable = false;
+      enable = true;
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
       
       # For iMac's AMD Radeon graphics
       videoDrivers = [ "amdgpu" ];
