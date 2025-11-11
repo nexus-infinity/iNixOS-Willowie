@@ -64,6 +64,13 @@
     initialPassword = "nixos";
   };
 
+  # Enable zsh shell
+  programs.zsh.enable = true;
+  };
+
+  # Enable zsh shell
+  programs.zsh.enable = true;
+
   # System packages
   environment.systemPackages = with pkgs; [
     git
