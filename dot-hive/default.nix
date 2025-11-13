@@ -9,6 +9,7 @@
     ../modules/services/metatron-cube.nix
     ../modules/services/atlas-frontend.nix
     ../modules/services/tata8i-pulse-engine.nix
+    ../modules/services/notion-ai-connector.nix
     
     # ◎▼▲→◼︎ Sacred Geometry Bridge - Metatron Cube Q-dimensional Translator
     "${sacredGeometryPath}/metatron_cube_translator.nix"
