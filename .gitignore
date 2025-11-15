@@ -60,3 +60,6 @@ node_modules/
 /var/log/FIELD-Apply-*.log
 # But allow the FIELD tools themselves
 !/tools/field/
+*.backup
+__pycache__/
+*.pyc

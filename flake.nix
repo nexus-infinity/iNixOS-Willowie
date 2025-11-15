@@ -10,6 +10,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations = {
+      # Original BearsiMac configuration
       BearsiMac = nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -38,6 +39,43 @@
           })
         ];
       };
+
+      # New Willowie configuration with consciousness system
+      willowie = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = {
+          inherit self nixpkgs;
+          sacredGeometryPath = ./sacred_geometry;
+          chakrasPath = ./chakras;
+        };
+
+        modules = [
+          ./hardware-configuration.nix
+
+          # Consciousness services
+          ./modules/services/ajna-agent.nix
+          ./modules/services/vishuddha-desktop.nix
+          ./modules/services/sound-field.nix
+          ./modules/services/model-purity.nix
+          ./modules/services/manifestation-evidence.nix
+
+          # Aggregator chakra module
+          ./dot-hive/default.nix
+          ./modules/services/atlas-frontend.nix
+
+          # Willowie-specific configuration
+          ./nixosConfigurations/willowie/configuration.nix
+
+          # Extra Nix settings module
+          ({ pkgs, ... }: {
+            nix.settings = {
+              auto-optimise-store = true;
+              experimental-features = [ "nix-command" "flakes" ];
+            };
+          })
+        ];
+      };
     };
 
     devShells.${system} = pkgs.mkShell {
@@ -45,8 +83,8 @@
       shellHook = ''
         echo "Dev shell active. Useful commands:
           - nix flake show
-          - nixos-rebuild build --flake .#BearsiMac
-          - nix build .#nixosConfigurations.BearsiMac.config.system.build.toplevel
+          - nixos-rebuild build --flake .#willowie
+          - nix build .#nixosConfigurations.willowie.config.system.build.toplevel
         "
       '';
     };

@@ -191,3 +191,77 @@ Built with:
 **Status**: ✅ Configuration validated, ready for deployment
 **Target**: iMac 2019 (BearsiMac) with Fusion Drive
 **NixOS Version**: 23.11
+
+---
+
+## 🧘 Consciousness System (NEW!)
+
+The consciousness system adds observability, desktop environment, and spiritual/metaphorical organization to iNixOS-Willowie.
+
+### Quick Start
+
+```bash
+# Build the consciousness-aware configuration
+sudo nixos-rebuild switch --flake .#willowie
+
+# Validate the system
+./scripts/validate-consciousness.sh
+
+# Test Ajna observability service
+curl http://localhost:6001/health | jq '.'
+
+# Launch bumble bee visualizer
+./tools/bumble-bee/bumble-bee-visualizer
+```
+
+### What's Included
+
+- **Ajna Agent**: Observability service with health/metrics endpoints (port 6001)
+- **Vishuddha Desktop**: Sway compositor with 9 sacred geometry workspaces
+- **Sound Field**: PipeWire audio architecture
+- **Bumble Bee Visualizer**: ASCII art hexagonal hive display
+- **Comprehensive Documentation**: Operating agreement, guides, and references
+
+### Documentation
+
+- **[Complete Guide](docs/consciousness/README.md)** - Full documentation
+- **[Quick Reference](docs/consciousness/QUICKREF.md)** - Essential commands
+- **[Operating Agreement](docs/consciousness/OPERATING-AGREEMENT.md)** - Development workflow
+- **[Intent Card](docs/consciousness/INTENT-CARD.md)** - Project tracking
+- **[Summary](docs/consciousness/SUMMARY.md)** - Implementation overview
+
+### Sacred Geometry Workspaces
+
+The Vishuddha desktop provides 9 workspaces organized by chakra:
+
+| Key | Workspace | Chakra | Symbol |
+|-----|-----------|--------|--------|
+| Mod+1 | 1 | Muladhara (Root) | ● |
+| Mod+2 | 2 | Svadhisthana (Sacral) | ◐ |
+| Mod+3 | 3 | Manipura (Solar) | ◑ |
+| Mod+4 | 4 | Anahata (Heart) | ◒ |
+| Mod+5 | 5 | Vishuddha (Throat) | ◓ |
+| Mod+6 | 6 | Ajna (Third Eye) | ◔ |
+| Mod+7 | 7 | Sahasrara (Crown) | ○ |
+| Mod+8 | 8 | Soma (Manifestation) | ◈ |
+| Mod+9 | 9 | Jnana (Knowledge) | ◉ |
+
+Press `Mod+b` to launch the bumble bee visualizer! 🐝
+
+### Implementation Scripts
+
+```bash
+# Generate all consciousness system files
+./scripts/implement-consciousness.sh
+
+# Validate services and endpoints
+./scripts/validate-consciousness.sh
+
+# Demo Ajna observability
+./scripts/demo_ajna.sh
+
+# Demo desktop environment
+./scripts/demo_desktop.sh
+```
+
+---
