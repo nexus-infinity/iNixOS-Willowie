@@ -61,5 +61,23 @@ node_modules/
 # But allow the FIELD tools themselves
 !/tools/field/
 *.backup
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+.pytest_cache/
+.coverage
+.tox/
+venv/
+env/
+ENV/
+.venv/
