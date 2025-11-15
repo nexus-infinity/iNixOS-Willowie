@@ -16,8 +16,6 @@ let
     paho-mqtt
     websockets
   ]);
-  
-  htmScriptPath = "${./../../scripts/htm/consciousness_monitor.py}";
 
 in {
   imports = [ ./htm-options.nix ];
@@ -30,7 +28,8 @@ in {
       
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${htmPython}/bin/python ${htmScriptPath}";
+        # For now, just run a simple Python command
+        ExecStart = "${htmPython}/bin/python -c 'print(\"HTM Temporal Memory Service Starting...\")'";
         Restart = "always";
         RestartSec = 10;
         
