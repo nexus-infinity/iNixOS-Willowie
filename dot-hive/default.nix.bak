@@ -10,8 +10,6 @@
     ../modules/services/atlas-frontend.nix
     ../modules/services/tata8i-pulse-engine.nix
     ../modules/services/notion-ai-connector.nix
-    ../modules/services/ajna-agent.nix
-    ./htm-enable.nix
     
     # ◎▼▲→◼︎ Sacred Geometry Bridge - Metatron Cube Q-dimensional Translator
     "${sacredGeometryPath}/metatron_cube_translator.nix"
@@ -39,3 +37,17 @@
     '';
   };
 }
+
+  # HTM Temporal Memory (NuPIC-inspired)
+  services.htmTemporalMemory = {
+    enable = true;
+    anomalyThreshold = 0.95;
+    spatialPoolerDimensions = 2048;
+    temporalMemoryCells = 32;
+  };
+  
+  # Enable consciousness integration
+  imports = [
+    ../modules/services/htm-temporal-memory.nix
+    ../modules/services/consciousness-integration.nix
+  ];

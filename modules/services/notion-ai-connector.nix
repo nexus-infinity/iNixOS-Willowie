@@ -166,15 +166,15 @@ with lib;
               sys.exit(1)
           
           # Configuration from environment
-          NOTION_API_KEY = os.getenv('NOTION_API_KEY', '')
-          NOTION_DATABASE_ID = os.getenv('NOTION_DATABASE_ID', '')
+          NOTION_API_KEY = os.getenv('NOTION_API_KEY', '''')
+          NOTION_DATABASE_ID = os.getenv('NOTION_DATABASE_ID', '''')
           SYNC_INTERVAL = int(os.getenv('SYNC_INTERVAL', '300'))
           JNANA_PATH = Path(os.getenv('JNANA_PATH', '/jnana/akasha/eternal_records'))
           MQTT_BROKER = os.getenv('MQTT_BROKER', 'mqtt://localhost:1883')
           MQTT_TOPIC = os.getenv('MQTT_TOPIC', 'jnana/notion/sync')
           HTTP_PORT = int(os.getenv('HTTP_PORT', '8084'))
           LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
-          LOG_DIR = Path(os.getenv('LOG_DIR', '/var/log/notion-ai-connector'))
+          LOG_DIR = Path(os.getenv('LOG_DIR', '''/var/log/notion-ai-connector'))
           
           # Setup logging
           log_file = LOG_DIR / 'connector.log'
@@ -217,7 +217,7 @@ with lib;
                   """Setup MQTT client for real-time events"""
                   try:
                       # Parse MQTT broker URL
-                      broker_url = MQTT_BROKER.replace('mqtt://', '')
+                      broker_url = MQTT_BROKER.replace('mqtt://', '''')
                       host = broker_url.split(':')[0] if ':' in broker_url else broker_url
                       port = int(broker_url.split(':')[1]) if ':' in broker_url else 1883
                       
