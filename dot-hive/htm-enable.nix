@@ -2,10 +2,9 @@
 
 {
   imports = [
-    ../modules/services/htm-config.nix
+    ../modules/services/htm-simple.nix
   ];
 
-  # Enable HTM Temporal Memory
   services.htmTemporalMemory = {
     enable = true;
     anomalyThreshold = 0.95;
