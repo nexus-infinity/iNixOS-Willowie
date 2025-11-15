@@ -14,3 +14,8 @@
     };
   };
 }
+  # Ajna observability service
+  services.ajnaAgent = {
+    enable = true;
+    port = 6001;
+  };
