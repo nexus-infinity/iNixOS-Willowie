@@ -61,3 +61,5 @@ node_modules/
 # But allow the FIELD tools themselves
 !/tools/field/
 *.backup
+__pycache__/
+*.pyc
