@@ -29,11 +29,11 @@
   };
 
   # Enable TRIM for SSD
-  services.fstrim.enable = true;
+  services.fstrim.enable = false;
 
   # Atlas Frontend Configuration for Ghost Alignments
   services.atlasFrontend = {
-    enable = true;
+    enable = false;
     mqttBroker = "mqtt://localhost:1883";
     pulseSyncTopic = "dojo/nodes/pulse/#";
     wsPort = 3000;
@@ -42,7 +42,7 @@
 
   # TATA 8i Pulse Engine for Chakra Synchronization
   services.tata8i-pulse-engine = {
-    enable = true;
+    enable = false;
     # Pulse engine specific settings will be auto-configured
   };
 
@@ -65,6 +65,9 @@
     # To generate a hashed password: mkpasswd -m sha-512
     initialPassword = "nixos";
   };
+
+  # Enable zsh shell
+  programs.zsh.enable = true;
 
   # System packages
   environment.systemPackages = with pkgs; [

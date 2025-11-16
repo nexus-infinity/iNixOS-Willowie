@@ -7,7 +7,7 @@
 
   outputs = { self, nixpkgs }: {
     nixosModules.default = { config, lib, pkgs, ... }: {
-      services.dojoNodes.root = {
+      services.dojoNodes.muladhara = {
         enable = true;
         prime = 2;
         chakra = "muladhara";

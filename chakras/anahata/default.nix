@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  services.dojoNodes.heart = {
+  services.dojoNodes.anahata = {
     enable = true;
     prime = 7;
     chakra = "anahata";

@@ -7,7 +7,7 @@
 
   outputs = { self, nixpkgs }: {
     nixosModules.default = { config, lib, pkgs, ... }: {
-      services.dojoNodes.thirdeye = {
+      services.dojoNodes.ajna = {
         enable = true;
         prime = 13;
         chakra = "ajna";

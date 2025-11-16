@@ -21,7 +21,9 @@
         };
 
         modules = [
-          ./hardware-configuration.nix
+          ./nixosConfigurations/BearsiMac/hardware-configuration.nix
+          # DOJO nodes module - defines services.dojoNodes options
+          ./modules/services/dojo-nodes.nix
 
           # Aggregator chakra module that uses sacredGeometryPath + chakrasPath
           ./dot-hive/default.nix
