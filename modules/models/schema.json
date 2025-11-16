@@ -1,0 +1,258 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://inixos-willowie.local/schemas/model-artifact.json",
+  "title": "Model Artifact Metadata Schema",
+  "description": "JSON Schema for validating model artifact metadata entries in the iNixOS-Willowie system. Used for CI validation and index integrity checks.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "chakra",
+    "frequencyHz",
+    "geometry",
+    "temporalScope",
+    "semanticTags",
+    "dataset",
+    "training",
+    "artifact",
+    "license",
+    "provenance"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the model artifact (e.g., 'muladhara-foundation-v1')",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "minLength": 3,
+      "maxLength": 64
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the model (e.g., '1.0.0', '2.1.0-alpha')",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?$"
+    },
+    "chakra": {
+      "type": "string",
+      "description": "Associated chakra energy center",
+      "enum": [
+        "muladhara",
+        "svadhisthana",
+        "manipura",
+        "anahata",
+        "vishuddha",
+        "ajna",
+        "sahasrara",
+        "soma",
+        "jnana"
+      ]
+    },
+    "frequencyHz": {
+      "type": "number",
+      "description": "Resonant frequency in Hertz associated with this model",
+      "minimum": 0,
+      "maximum": 10000
+    },
+    "geometry": {
+      "type": "object",
+      "description": "Sacred geometry alignment properties",
+      "required": ["pattern", "dimensions"],
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Geometric pattern name (e.g., 'metatron-cube', 'flower-of-life', 'hexagon')"
+        },
+        "dimensions": {
+          "type": "integer",
+          "description": "Dimensional alignment (e.g., 3, 5, 9)",
+          "minimum": 1,
+          "maximum": 13
+        },
+        "coordinates": {
+          "type": "array",
+          "description": "Optional geometric coordinates",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "temporalScope": {
+      "type": "string",
+      "description": "Temporal scope of the model's training and applicability",
+      "enum": [
+        "ephemeral",
+        "session",
+        "daily",
+        "weekly",
+        "monthly",
+        "seasonal",
+        "annual",
+        "eternal"
+      ]
+    },
+    "semanticTags": {
+      "type": "array",
+      "description": "Semantic tags for categorization and discovery",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "dataset": {
+      "type": "object",
+      "description": "Dataset information used for training",
+      "required": ["id", "url"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Dataset identifier or name"
+        },
+        "commit": {
+          "type": "string",
+          "description": "Dataset version commit hash or tag",
+          "pattern": "^[a-f0-9]{7,40}$"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the dataset repository or location",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": true
+    },
+    "training": {
+      "type": "object",
+      "description": "Training run information",
+      "required": ["repo", "command"],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "description": "Training code repository URL",
+          "format": "uri"
+        },
+        "commit": {
+          "type": "string",
+          "description": "Training code commit hash",
+          "pattern": "^[a-f0-9]{7,40}$"
+        },
+        "command": {
+          "type": "string",
+          "description": "Command used to execute training"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Training duration (e.g., '4h30m', '2d')"
+        },
+        "hardware": {
+          "type": "string",
+          "description": "Hardware used for training (e.g., 'A100-80GB', 'TPU-v4')"
+        }
+      },
+      "additionalProperties": true
+    },
+    "artifact": {
+      "type": "object",
+      "description": "Model artifact file information",
+      "required": ["filename", "sha256", "sizeBytes"],
+      "properties": {
+        "filename": {
+          "type": "string",
+          "description": "Artifact filename (e.g., 'model.safetensors', 'model.gguf')"
+        },
+        "sha256": {
+          "type": "string",
+          "description": "SHA-256 checksum of the artifact file",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "description": "File size in bytes",
+          "minimum": 0
+        },
+        "format": {
+          "type": "string",
+          "description": "Model format (e.g., 'safetensors', 'gguf', 'pytorch')"
+        },
+        "downloadUrl": {
+          "type": "string",
+          "description": "Direct download URL (e.g., Hugging Face repo URL)",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": true
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier (e.g., 'MIT', 'Apache-2.0', 'CC-BY-4.0')"
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Provenance and reproducibility metadata",
+      "required": ["runId"],
+      "properties": {
+        "runId": {
+          "type": "string",
+          "description": "Unique identifier for the training run"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "ISO 8601 timestamp of model creation",
+          "format": "date-time"
+        },
+        "creator": {
+          "type": "string",
+          "description": "Entity that created the model"
+        },
+        "metrics": {
+          "type": "object",
+          "description": "Training and evaluation metrics",
+          "properties": {
+            "loss": {
+              "type": "number",
+              "description": "Final training loss"
+            },
+            "accuracy": {
+              "type": "number",
+              "description": "Model accuracy (0-1)",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "perplexity": {
+              "type": "number",
+              "description": "Model perplexity score"
+            }
+          },
+          "additionalProperties": true
+        },
+        "reproducibility": {
+          "type": "object",
+          "description": "Reproducibility information",
+          "properties": {
+            "seed": {
+              "type": "integer",
+              "description": "Random seed used for training"
+            },
+            "environment": {
+              "type": "string",
+              "description": "Environment description or hash"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the model"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or usage instructions"
+    }
+  },
+  "additionalProperties": false
+}
