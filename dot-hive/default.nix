@@ -6,6 +6,7 @@
   imports = [
     # Service module definitions (must be imported before chakras)
     ../modules/services/dojo-nodes.nix
+    ../modules/services/mosquitto-fix.nix
     ../modules/services/metatron-cube.nix
     ../modules/services/atlas-frontend.nix
     ../modules/services/tata8i-pulse-engine.nix

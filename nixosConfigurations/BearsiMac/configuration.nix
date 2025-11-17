@@ -99,3 +99,15 @@
   # System state version
   system.stateVersion = "23.11";
 }
+
+imports = [
+  ../../../modules/services/copilot-assistant.nix
+  ./hardware-configuration.nix
+];
+
+services.copilot-assistant = {
+  enable = true;
+  backend = "python";
+  backendScript = "/etc/copilot-assistant/copilot-assistant-python.py";
+  port = 8765;
+};
