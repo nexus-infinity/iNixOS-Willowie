@@ -6,7 +6,7 @@
 # Make sure this import is present in your imports list!
 # If you have an existing 'imports = [ ... ];' block, add the line below inside it.
 imports = [
-  ../modules/services/copilot-assistant.nix
+  ../modules/services/copilot-assistant-flake.nix
 # ... other imports ...
 ];
 
@@ -23,7 +23,7 @@ services.copilot-assistant = {
 
 # Add this to your imports array (edit the existing one, or add if not present):
 imports = [
-  ../modules/services/copilot-assistant.nix
+  ../modules/services/copilot-assistant-flake.nix
   # ...other imports...
 ];
 

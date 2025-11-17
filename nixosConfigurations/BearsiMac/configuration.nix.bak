@@ -98,7 +98,7 @@
 }
 
 imports = [
-  ../../../modules/services/copilot-assistant.nix
+  ../../../modules/services/copilot-assistant-flake.nix
   ./hardware-configuration.nix
 ];
 
