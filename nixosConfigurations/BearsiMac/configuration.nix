@@ -2,7 +2,21 @@
 # Machine-specific settings for the sacred geometry system
 { config, lib, pkgs, ... }:
 {
-  imports = [ ../../modules/atlas.nix ];
+  imports = [
+    ../../../modules/services/copilot-assistant-flake.nix
+    ./hardware-configuration.nix
+    ../../dot-hive/default.nix
+    ../../modules/atlas.nix
+    # Add further service/system modules as needed
+  ];
+
+  # Copilot Assistant service configuration
+  services.copilot-assistant = {
+    enable = true;
+    backend = "python";
+    backendScript = "/etc/copilot-assistant/copilot-assistant-python.py";
+    port = 8765;
+  };
 
   # Basic system configuration
   networking = {
@@ -52,7 +66,6 @@
     defaults = {
       transactionOptimizationEnabled = true;
     };
-
     # The nodes themselves are configured in their respective chakra definitions
   };
 
@@ -84,13 +97,11 @@
   # Enable important services
   services = {
     openssh.enable = true;
-    
     # Enable X11 and GNOME Desktop
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
-      
       # For iMac's AMD Radeon graphics
       videoDrivers = [ "amdgpu" ];
     };
@@ -100,14 +111,3 @@
   system.stateVersion = "23.11";
 }
 
-imports = [
-  ../../../modules/services/copilot-assistant.nix
-  ./hardware-configuration.nix
-];
-
-services.copilot-assistant = {
-  enable = true;
-  backend = "python";
-  backendScript = "/etc/copilot-assistant/copilot-assistant-python.py";
-  port = 8765;
-};
