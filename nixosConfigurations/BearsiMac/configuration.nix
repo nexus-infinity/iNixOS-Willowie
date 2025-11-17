@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
     ../../dot-hive/default.nix
     ../../modules/atlas.nix
-    # Add further service/system modules as needed
   ];
 
   # Copilot Assistant service configuration
@@ -110,4 +109,3 @@
   # System state version
   system.stateVersion = "23.11";
 }
-
