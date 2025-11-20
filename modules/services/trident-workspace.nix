@@ -48,8 +48,8 @@ with lib;
       gh  # GitHub CLI
       
       # Programming languages and tools
-      ${config.services.trident-workspace.pythonVersion}Full
-      ${config.services.trident-workspace.pythonVersion}Packages.pip
+      builtins.getAttr (config.services.trident-workspace.pythonVersion + "Full") pkgs
+      (builtins.getAttr (config.services.trident-workspace.pythonVersion + "Packages") pkgs).pip
       ${config.services.trident-workspace.pythonVersion}Packages.virtualenv
       nodejs_20
       nodePackages.npm
@@ -257,7 +257,7 @@ with lib;
         WORKSPACE="${config.services.trident-workspace.workspaceDir}/trident_scrum"
         
         if [ ! -d "$WORKSPACE/venv" ]; then
-          ${pkgs.${config.services.trident-workspace.pythonVersion}}/bin/python -m venv "$WORKSPACE/venv"
+          builtins.getAttr config.services.trident-workspace.pythonVersion pkgs/bin/python -m venv "$WORKSPACE/venv"
           source "$WORKSPACE/venv/bin/activate"
           
           # Install common Python packages
