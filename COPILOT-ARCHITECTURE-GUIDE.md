@@ -684,7 +684,7 @@ The configuration is production-ready for deployment, with stub services that al
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2025-11-04
+**Version**: 1.1
+**Last Updated**: See git commit history for latest updates
 **Target System**: iMac 2019 (BearsiMac)
 **NixOS Version**: 23.11
