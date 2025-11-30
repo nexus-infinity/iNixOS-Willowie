@@ -474,7 +474,11 @@ nixos-rebuild switch --flake .#BearsiMac
 git add .
 git commit -m "Customize BearsiMac configuration"
 
-# Push to GitHub (use your current branch)
+# Push to GitHub (uses your current branch)
+# First, verify you're on the correct branch:
+git branch --show-current
+
+# Then push your changes:
 git push origin $(git branch --show-current)
 ```
 
