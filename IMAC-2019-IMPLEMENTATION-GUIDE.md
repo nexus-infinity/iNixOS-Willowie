@@ -79,15 +79,16 @@ git clone https://github.com/nexus-infinity/iNixOS-Willowie.git
 # Navigate into repository
 cd iNixOS-Willowie
 
-# Switch to the designated development branch
-git checkout claude/evaluate-repository-011CUoePZDnh6krsFQ6CMLD9
+# Switch to the main branch (recommended for stable deployment)
+git checkout main
+# If you need a different branch, run 'git branch -a' to list available branches
 ```
 
 ### If Repository Already Exists:
 ```bash
 cd ~/iNixOS-Willowie
 git status
-git pull origin main  # or your current branch
+git pull origin main
 ```
 
 ---
@@ -473,8 +474,8 @@ nixos-rebuild switch --flake .#BearsiMac
 git add .
 git commit -m "Customize BearsiMac configuration"
 
-# Push to GitHub
-git push origin claude/evaluate-repository-011CUoePZDnh6krsFQ6CMLD9
+# Push to GitHub (use your current branch)
+git push origin $(git branch --show-current)
 ```
 
 ---
