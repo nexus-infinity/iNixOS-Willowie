@@ -1,6 +1,11 @@
-# GitHub Copilot Architecture Guide - iNixOS-Willowie
+# AI Assistant Architecture Guide - iNixOS-Willowie
 
-This document provides context for GitHub Copilot to understand the architecture, naming conventions, and design patterns used in this repository. It serves as a knowledge base for AI-assisted development.
+This document provides context for AI assistants (GitHub Copilot, Google Gemini, local LLMs) to understand the architecture, naming conventions, and design patterns used in this repository. It serves as a knowledge base for AI-assisted development and coherence building.
+
+**Supported AI Assistants**:
+- GitHub Copilot (primary)
+- Google Gemini (alternative)
+- Local LLM agents (Ollama, LLaMA, etc.)
 
 ---
 
@@ -527,7 +532,9 @@ Default port assignments for services (configurable):
 ### Branch Strategy
 
 - `main`: Stable, production-ready configurations
-- `claude/evaluate-repository-*`: Claude-assisted development branches
+- `copilot/*`: GitHub Copilot-assisted development branches
+- `gemini/*`: Google Gemini-assisted development branches
+- `local-llm/*`: Local LLM agent-assisted branches
 - `feat/*`: Feature branches
 
 ### Commit Message Convention
@@ -585,9 +592,9 @@ feat: Add soma manifestation chakra
 
 ---
 
-## Copilot Auto-Completion Hints
+## AI Assistant Auto-Completion Hints
 
-When working in this repository, Copilot should understand:
+When working in this repository, AI assistants (Copilot, Gemini, local LLMs) should understand:
 
 1. **In `chakras/*/default.nix` files**:
    - Suggest service configurations matching chakra identity
@@ -670,7 +677,7 @@ nix fmt
 
 ---
 
-## Conclusion for Copilot
+## Conclusion for AI Assistants
 
 This repository implements a **modular, metaphor-driven NixOS configuration** for an iMac 2019. When providing suggestions:
 
@@ -679,12 +686,15 @@ This repository implements a **modular, metaphor-driven NixOS configuration** fo
 3. Maintain import order (services before chakras)
 4. Use stub implementations with warnings for unfinished features
 5. Keep the sacred geometry metaphor consistent but recognize it's conceptual
+6. Avoid cloud provider dependencies (no AWS, GCP, Azure)
+7. Prefer local LLM solutions via Nix packages when AI features are needed
 
 The configuration is production-ready for deployment, with stub services that allow builds to succeed while documenting future implementation needs.
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2025-11-04
+**Version**: 1.2
+**Last Updated**: See git commit history for latest updates
 **Target System**: iMac 2019 (BearsiMac)
 **NixOS Version**: 23.11
+**Supported AI Assistants**: GitHub Copilot, Google Gemini, Local LLMs
