@@ -59,6 +59,27 @@
     # Pulse engine specific settings will be auto-configured
   };
 
+  # FIELD-NixOS-SOMA Configuration
+  field = {
+    enable = true;
+    somaIdentity = "⬡ FIELD-NixOS-SOMA — BearsiMac Willowie Kitchen";
+    
+    trainStation = {
+      frequency = 852;
+      position = "center";
+      symbol = "🚂";
+      chakra = "Crown Base";
+    };
+    
+    # Enable Train Station service
+    trainStation.serviceEnable = true;
+    trainStation.port = 8520;
+    
+    # Enable Prime Petal generation
+    primePetals.enable = true;
+    primePetals.generateOnBoot = true;
+  };
+
   # Enable all chakra nodes with their respective alignments
   # The actual chakra configurations are imported via dot-hive/default.nix
   services.dojoNodes = {

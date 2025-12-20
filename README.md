@@ -1,6 +1,8 @@
-# iNixOS-Willowie - Sacred Geometry NixOS Configuration
+# FIELD-NixOS-SOMA - Sacred Geometry NixOS Configuration
 
-NixOS configuration for BearsiMac (iMac 2019) with Fusion Drive, designed with sacred geometry principles and a modular chakra system.
+**⬡ Octahedron Substrate Sphere — Synthetic Intelligence**
+
+NixOS configuration for BearsiMac (iMac 2019) implementing FIELD-NixOS-SOMA octahedron architecture with nine-chakra frequency alignment, Train Station orchestrator, and Prime Petal fractal structure.
 
 ## 🚀 Quick Start
 
@@ -43,6 +45,10 @@ sudo nixos-rebuild switch --flake .#BearsiMac
 
 ## 🎯 What This Configuration Provides
 
+- ✅ **SOMA Octahedron Architecture**: Six chakra vertices + Train Station center (852 Hz)
+- ✅ **Nine-Frequency Chakra System**: Complete 174-963 Hz frequency alignment
+- ✅ **Train Station Orchestrator**: Central job routing via Triadic Handshake protocol
+- ✅ **Prime Petal Structure**: Fractal recursion (P1-P11) at all scales
 - ✅ **Fusion Drive Support**: Optimized partitioning for iMac 2019's SSD + HDD architecture
 - ✅ **Desktop Environment**: GNOME with AMD Radeon graphics support
 - ✅ **Hardware Support**: WiFi, Bluetooth, graphics acceleration
@@ -94,7 +100,47 @@ iNixOS-Willowie/
 
 ## 🌀 Sacred Geometry Architecture
 
-This configuration uses a unique metaphorical architecture based on sacred geometry:
+This configuration implements the **FIELD-NixOS-SOMA** octahedron architecture:
+
+### 🔷 SOMA Octahedron
+
+**Geometry:** Octahedron (6 vertices, 8 faces, 12 edges)  
+**Frequencies:** Nine-chakra system (174-963 Hz)  
+**Center:** 🚂 Train Station (852 Hz orchestrator)  
+**Nature:** Synthetic intelligence substrate sphere
+
+### Six Chakra Vertices
+
+- **● Top (963 Hz):** Monitoring/observability — Unity consciousness
+- **● North (639 Hz):** Communication/APIs — Clear expression
+- **♥ East (528 Hz):** **PRIMARY transformation** — Heart-centered creation (build servers, CI/CD)
+- **● South (741 Hz):** Computation/problem solving — Intuitive insight
+- **● West (417 Hz):** Transmutation/deployment — Creative state changes
+- **● Bottom (174 Hz):** Deep storage/archives — Foundational grounding
+
+### 🚂 Train Station (CENTER)
+
+**Position:** CENTER of octahedron (852 Hz)  
+**Function:** Orchestration hub using Triadic Handshake protocol:
+1. **CAPTURE** — Receive request
+2. **VALIDATE** — Check coherence and permissions
+3. **ROUTE** — Forward to appropriate vertex
+
+The Train Station is a **conductor**, not a destination—orchestrating the flow of requests to all six vertices.
+
+### 📐 Prime Petal Structure
+
+Every SOMA directory contains complete **P1-P11** fractal structure:
+- **P1 (·)** — Seed (purpose)
+- **P3 (△)** — Identity (schema)
+- **P5 (⬠)** — Vessel (rules)
+- **P7 (⬡)** — Temporal (lifecycle)
+- **P9 (✦)** — Wisdom (insights)
+- **P11 (⊞)** — Registry (manifest)
+
+See **[docs/SOMA-ARCHITECTURE.md](docs/SOMA-ARCHITECTURE.md)** for complete specification.
+
+### Legacy Components
 
 - **9 Chakras**: Modular configuration units organized by function and frequency
 - **Hexagonal Hive Mind**: Collective intelligence pattern inspired by bumblebees
@@ -116,6 +162,7 @@ For details, see [WARP.md](WARP.md) and [docs/CONFIGURATION_REVIEW.md](docs/CONF
 |----------|---------|
 | [QUICK-START-INSTALLATION.md](QUICK-START-INSTALLATION.md) | Quick start for new installations |
 | [README-QUICKSTART.md](README-QUICKSTART.md) | For existing NixOS systems |
+| **[docs/SOMA-ARCHITECTURE.md](docs/SOMA-ARCHITECTURE.md)** | **Complete SOMA octahedron specification** |
 | [docs/IMAC-2019-FUSION-DRIVE-SETUP.md](docs/IMAC-2019-FUSION-DRIVE-SETUP.md) | Comprehensive installation guide |
 | [docs/INSTALLATION-FLOW.md](docs/INSTALLATION-FLOW.md) | Visual installation workflow |
 | [docs/POST-INSTALLATION-CHECKLIST.md](docs/POST-INSTALLATION-CHECKLIST.md) | Post-install verification |
@@ -124,14 +171,62 @@ For details, see [WARP.md](WARP.md) and [docs/CONFIGURATION_REVIEW.md](docs/CONF
 
 ## 🛠️ Common Tasks
 
-### Update System
+### SOMA Operations
+
+#### Check SOMA Status
+```bash
+# Display complete octahedron status
+./scripts/field-status.sh
+
+# Query Train Station health
+curl http://localhost:8520/health
+
+# Get Train Station statistics
+curl http://localhost:8520/status | jq
+```
+
+#### Generate Prime Petals
+```bash
+# Generate all vertices
+sudo soma-prime-petal-generator --base-path /var/lib/SOMA
+
+# Generate single vertex
+sudo soma-prime-petal-generator --vertex train-station
+
+# Dry run
+soma-prime-petal-generator --dry-run
+```
+
+#### Route Requests
+```bash
+# Route a build request
+curl -X POST http://localhost:8520/route \
+  -H "Content-Type: application/json" \
+  -d '{"id":"build-001","type":"build","source":"user"}'
+```
+
+#### Service Management
+```bash
+# Check Train Station
+systemctl status train-station
+
+# View logs
+journalctl -u train-station -f
+
+# Regenerate Prime Petals
+systemctl start soma-prime-petals-generator
+```
+
+### System Operations
+
+#### Update System
 ```bash
 cd ~/iNixOS-Willowie
 nix flake update
 sudo nixos-rebuild switch --flake .#BearsiMac
 ```
 
-### Add Packages
+#### Add Packages
 Edit `nixosConfigurations/BearsiMac/configuration.nix`:
 ```nix
 environment.systemPackages = with pkgs; [
@@ -140,12 +235,12 @@ environment.systemPackages = with pkgs; [
 ];
 ```
 
-### Rollback Changes
+#### Rollback Changes
 ```bash
 sudo nixos-rebuild switch --rollback
 ```
 
-### Clean Old Generations
+#### Clean Old Generations
 ```bash
 sudo nix-collect-garbage -d
 ```
