@@ -22,12 +22,14 @@ class SOMAPrimePetalGenerator:
     """Generate Prime Petal structure for SOMA octahedron architecture."""
     
     # Prime Petal symbols and properties
+    # Note: P9 uses 9 (3²) as it represents the completion of the 3×3 cycle
+    # in sacred geometry, completing the wisdom synthesis before registry
     PRIME_PETALS = {
         "P1": {"symbol": "·", "name": "Seed", "dimension": "0D", "prime": 1},
         "P3": {"symbol": "△", "name": "Identity", "dimension": "2D", "prime": 3},
         "P5": {"symbol": "⬠", "name": "Vessel", "dimension": "2D", "prime": 5},
         "P7": {"symbol": "⬡", "name": "Temporal", "dimension": "2D→3D", "prime": 7},
-        "P9": {"symbol": "✦", "name": "Wisdom", "dimension": "2D", "prime": 9},
+        "P9": {"symbol": "✦", "name": "Wisdom", "dimension": "2D", "prime": 9},  # 3² = completion
         "P11": {"symbol": "⊞", "name": "Registry", "dimension": "2D→3D", "prime": 11},
     }
     

@@ -299,7 +299,7 @@ class TrainStationOrchestrator:
 class TrainStationHTTPHandler(http.server.SimpleHTTPRequestHandler):
     """HTTP handler for Train Station API."""
     
-    orchestrator: TrainStationOrchestrator = None
+    orchestrator: Optional[TrainStationOrchestrator] = None
     
     def do_GET(self):
         """Handle GET requests."""
