@@ -29,6 +29,11 @@
           ./dot-hive/default.nix
           ./modules/services/atlas-frontend.nix 
 
+          # SOMA octahedron modules
+          ./modules/field-integration.nix
+          ./modules/prime-petals.nix
+          ./modules/train-station.nix
+
           # Machine-specific config
           ./nixosConfigurations/BearsiMac/configuration.nix
 
@@ -65,6 +70,11 @@
           # Aggregator chakra module
           ./dot-hive/default.nix
           ./modules/services/atlas-frontend.nix
+
+          # SOMA octahedron modules
+          ./modules/field-integration.nix
+          ./modules/prime-petals.nix
+          ./modules/train-station.nix
 
           # Willowie-specific configuration
           ./nixosConfigurations/willowie/configuration.nix
