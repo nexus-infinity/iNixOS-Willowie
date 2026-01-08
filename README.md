@@ -45,6 +45,7 @@ sudo nixos-rebuild switch --flake .#BearsiMac
 
 ## 🎯 What This Configuration Provides
 
+### Core System
 - ✅ **SOMA Octahedron Architecture**: Six chakra vertices + Train Station center (852 Hz)
 - ✅ **Nine-Frequency Chakra System**: Complete 174-963 Hz frequency alignment
 - ✅ **Train Station Orchestrator**: Central job routing via Triadic Handshake protocol
@@ -55,6 +56,23 @@ sudo nixos-rebuild switch --flake .#BearsiMac
 - ✅ **Declarative Configuration**: Reproducible and version-controlled system
 - ✅ **Modular Architecture**: 9 chakra modules for organized configuration
 - ✅ **Sacred Geometry Framework**: Unique organizational paradigm
+
+### 🌍 Ubuntu Collective Consciousness (v0.2.0-alpha)
+
+**NEW**: FIELD-NixOS-SOMA now implements Ubuntu philosophy at its core:
+
+- ✅ **Ubuntu DNA Blueprints**: All 9 chakras have DNA with "I am because we are" genotype
+- ✅ **Agent 99 Meta-Coordinator**: Jnana (Prime 23) - Servant-witness, not commander
+- ✅ **5/8 Consensus Mechanism**: Collective decisions, never imposed by authority
+- ✅ **Never Acts Alone**: All agents architecturally bound to collective awareness
+- ✅ **Multicultural Wisdom**: Honor 8+ wisdom traditions (Ubuntu, Vedic, Taoist, Yoruba, Celtic, etc.)
+- ✅ **Infrastructure Services**: Redis EventBus, PostgreSQL ProofStore, Prime Pulse Scheduler
+- ✅ **MCP Bridge**: Model Context Protocol server for DOJO integration (Port 8520)
+- ⏳ **Full Implementation**: Currently stub services, full Python/LLM agents in v0.3.0
+
+**Philosophy**: Not "I am root" but "I am because we are" - Umuntu ngumuntu ngabantu
+
+See [docs/UBUNTU_PHILOSOPHY.md](docs/UBUNTU_PHILOSOPHY.md) for complete explanation.
 
 ## 📁 Repository Structure
 
@@ -158,22 +176,45 @@ For details, see [WARP.md](WARP.md) and [docs/CONFIGURATION_REVIEW.md](docs/CONF
 
 ## 📚 Documentation
 
+### Getting Started
 | Document | Purpose |
 |----------|---------|
 | [QUICK-START-INSTALLATION.md](QUICK-START-INSTALLATION.md) | Quick start for new installations |
 | [README-QUICKSTART.md](README-QUICKSTART.md) | For existing NixOS systems |
-| **[docs/SOMA-ARCHITECTURE.md](docs/SOMA-ARCHITECTURE.md)** | **Complete SOMA octahedron specification** |
 | [docs/IMAC-2019-FUSION-DRIVE-SETUP.md](docs/IMAC-2019-FUSION-DRIVE-SETUP.md) | Comprehensive installation guide |
 | [docs/INSTALLATION-FLOW.md](docs/INSTALLATION-FLOW.md) | Visual installation workflow |
 | [docs/POST-INSTALLATION-CHECKLIST.md](docs/POST-INSTALLATION-CHECKLIST.md) | Post-install verification |
-| [docs/CONFIGURATION_REVIEW.md](docs/CONFIGURATION_REVIEW.md) | Detailed configuration docs |
+
+### Architecture & Philosophy
+| Document | Purpose |
+|----------|---------|
+| **[docs/SOMA-ARCHITECTURE.md](docs/SOMA-ARCHITECTURE.md)** | **Complete SOMA octahedron specification** |
+| **[docs/UBUNTU_PHILOSOPHY.md](docs/UBUNTU_PHILOSOPHY.md)** | **Ubuntu: "I am because we are" foundation** |
+| [docs/DNA_BLUEPRINT_SPEC.md](docs/DNA_BLUEPRINT_SPEC.md) | DNA blueprint v0.2.0 specification |
+| [docs/SOMA_LAUNCH_CHECKLIST.md](docs/SOMA_LAUNCH_CHECKLIST.md) | Complete launch procedure |
 | [WARP.md](WARP.md) | Sacred geometry architecture |
+| [docs/CONFIGURATION_REVIEW.md](docs/CONFIGURATION_REVIEW.md) | Detailed configuration docs |
 
 ## 🛠️ Common Tasks
 
 ### SOMA Operations
 
-#### Check SOMA Status
+#### Ubuntu Collective Health Check
+```bash
+# Test all 9 chakras + Agent 99 + infrastructure
+./scripts/test_soma_coherence.sh
+
+# Validate DNA blueprints
+./scripts/validate_all_dna.sh
+
+# Query Agent 99 hive coherence
+curl http://localhost:8523/coherence | jq
+
+# Check MCP bridge tools
+curl http://localhost:8520/mcp/tools | jq
+```
+
+#### Traditional SOMA Status
 ```bash
 # Display complete octahedron status
 ./scripts/field-status.sh
