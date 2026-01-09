@@ -1,0 +1,244 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://field-nixos-soma.org/schemas/dna-blueprint-v0.2.0.json",
+  "title": "FIELD-NixOS-SOMA DNA Blueprint Schema",
+  "description": "Schema for v0.2.0 DNA blueprints with Ubuntu philosophy at the core",
+  "version": "0.2.0",
+  "type": "object",
+  "required": [
+    "version",
+    "prime_id",
+    "chakra",
+    "identity",
+    "ubuntu_genotype",
+    "cultural_phenotype",
+    "model",
+    "homeostatic_budgets",
+    "swarm_awareness",
+    "frequencies"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^0\\.2\\.0-ubuntu-(alpha|beta|rc|stable)$",
+      "description": "Blueprint version"
+    },
+    "prime_id": {
+      "type": "integer",
+      "enum": [2, 3, 5, 7, 11, 13, 17, 19, 23],
+      "description": "Prime number identity (2, 3, 5, 7, 11, 13, 17, 19, 23)"
+    },
+    "chakra": {
+      "type": "string",
+      "enum": [
+        "muladhara",
+        "svadhisthana",
+        "manipura",
+        "anahata",
+        "vishuddha",
+        "ajna",
+        "sahasrara",
+        "soma",
+        "jnana"
+      ],
+      "description": "Chakra identifier"
+    },
+    "identity": {
+      "type": "object",
+      "required": ["name", "role", "archetype"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Chakra display name"
+        },
+        "role": {
+          "type": "string",
+          "description": "Primary role in collective"
+        },
+        "archetype": {
+          "type": "string",
+          "description": "Archetypal pattern"
+        }
+      }
+    },
+    "ubuntu_genotype": {
+      "type": "object",
+      "required": ["principle", "manifestation", "never_alone"],
+      "properties": {
+        "principle": {
+          "type": "string",
+          "pattern": ".*I am because we are.*",
+          "description": "Ubuntu core principle - must contain 'I am because we are'"
+        },
+        "manifestation": {
+          "type": "string",
+          "description": "How Ubuntu manifests in this chakra"
+        },
+        "never_alone": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must always be true - no agent acts alone"
+        }
+      }
+    },
+    "cultural_phenotype": {
+      "type": "object",
+      "required": ["expressions"],
+      "properties": {
+        "expressions": {
+          "type": "object",
+          "minProperties": 5,
+          "description": "Minimum 5 cultural expressions required",
+          "patternProperties": {
+            "^(sanskrit|yoruba|hebrew|xhosa|gaelic|tibetan|chinese|maori|lakota|celtic|vedic|buddhist|kabbalistic|hermetic|sufi|taoist|egyptian|norse)$": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": ["primary", "quantization", "fallback"],
+      "properties": {
+        "primary": {
+          "type": "object",
+          "required": ["name", "size", "purpose"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^TinyLlama.*",
+              "description": "Primary model name (must be TinyLlama)"
+            },
+            "size": {
+              "type": "string",
+              "pattern": "^1\\.1B$",
+              "description": "Model size (1.1B for TinyLlama)"
+            },
+            "purpose": {
+              "type": "string",
+              "description": "Model purpose"
+            }
+          }
+        },
+        "quantization": {
+          "type": "string",
+          "pattern": "^Q4_(0|K_M|K_S)$",
+          "description": "Quantization format (Q4_0, Q4_K_M, Q4_K_S)"
+        },
+        "fallback": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "description": "Fallback BERT or cultural models"
+        }
+      }
+    },
+    "homeostatic_budgets": {
+      "type": "object",
+      "required": ["cpu_percent", "memory_mb", "cqhi_cap"],
+      "properties": {
+        "cpu_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "CPU percentage allocation"
+        },
+        "memory_mb": {
+          "type": "integer",
+          "minimum": 128,
+          "maximum": 8192,
+          "description": "Memory allocation in MB"
+        },
+        "cqhi_cap": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Collective Quantum Harmonic Index cap (0-1)"
+        },
+        "resource_sharing": {
+          "type": "boolean",
+          "description": "Whether resources can be shared with collective"
+        }
+      }
+    },
+    "swarm_awareness": {
+      "type": "object",
+      "required": ["never_acts_alone", "octahedral_coordination", "consensus_threshold"],
+      "properties": {
+        "never_acts_alone": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must be true - always acts with collective"
+        },
+        "octahedral_coordination": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must be true - uses octahedral geometry"
+        },
+        "consensus_threshold": {
+          "type": "string",
+          "pattern": "^5/8$",
+          "description": "5/8 consensus requirement"
+        },
+        "heartbeat_interval_sec": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "description": "Ubuntu heartbeat interval in seconds"
+        }
+      }
+    },
+    "frequencies": {
+      "type": "object",
+      "required": ["sacred_hz", "harmonic_series"],
+      "properties": {
+        "sacred_hz": {
+          "type": "number",
+          "minimum": 108,
+          "maximum": 1086,
+          "description": "Sacred frequency (108-1086 Hz range)"
+        },
+        "solfeggio": {
+          "type": "string",
+          "description": "Solfeggio tone or mantra"
+        },
+        "harmonic_series": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Prime-based harmonic series"
+        }
+      }
+    },
+    "endpoints": {
+      "type": "object",
+      "properties": {
+        "health": {
+          "type": "string",
+          "pattern": "^/health$"
+        },
+        "coherence": {
+          "type": "string",
+          "pattern": "^/coherence$"
+        },
+        "consensus": {
+          "type": "string",
+          "pattern": "^/consensus$"
+        }
+      }
+    },
+    "directory_structure": {
+      "type": "object",
+      "properties": {
+        "base_path": {
+          "type": "string",
+          "pattern": "^/var/lib/soma/chakras/[a-z]+$"
+        }
+      }
+    }
+  }
+}
